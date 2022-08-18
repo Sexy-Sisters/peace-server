@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/wake_up
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: jik
+    password: jesusisking
+
+
+
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
