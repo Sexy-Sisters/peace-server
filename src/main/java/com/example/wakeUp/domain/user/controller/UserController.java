@@ -21,4 +21,9 @@ public class UserController {
     ) {
         userServiceImp.signUp(request);
     }
+
+    @GetMapping("/issue-code")
+    public void issueCode() {
+       userServiceImp.issueCode();
+    }
 }

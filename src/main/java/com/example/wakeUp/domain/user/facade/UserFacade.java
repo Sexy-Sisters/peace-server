@@ -16,4 +16,10 @@ public class UserFacade {
             throw UserAlreadyExistsException.EXCEPTION;
         }
     }
+
+    // TODO :: change real getCurrentUser
+    public User getFakeCurrentUser() {
+        return userRepository.findById(1L)
+                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+    }
 }
