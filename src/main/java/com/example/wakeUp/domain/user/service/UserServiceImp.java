@@ -1,6 +1,6 @@
-package com.example.wakeUp.domain.user.domain.service;
+package com.example.wakeUp.domain.user.service;
 
-import com.example.wakeUp.domain.user.domain.controller.dto.request.CreateUserRequestDto;
+import com.example.wakeUp.domain.user.controller.dto.request.CreateUserRequestDto;
 
 public interface UserServiceImp {
 
