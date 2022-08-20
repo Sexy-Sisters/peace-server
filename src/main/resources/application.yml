@@ -5,10 +5,25 @@ spring:
     username: jik
     password: jesusisking
 
-
+  redis:
+    host: localhost
+    port: 6379
 
   jpa:
     generate-ddl: true
     show-sql: true
     hibernate:
       ddl-auto: update
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          socketFactory.class: javax.net.ssl.SSLSocketFactory
+          auth: true
+          starttls:
+            enable: true

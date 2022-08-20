@@ -1,6 +1,5 @@
 package com.example.wakeUp.global.config.security;
 
-import com.example.wakeUp.domain.user.domain.type.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
