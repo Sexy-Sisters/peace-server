@@ -1,12 +1,10 @@
-package com.example.wakeUp.domain.user.domain.controller;
+package com.example.wakeUp.domain.user.controller;
 
-import com.example.wakeUp.domain.user.domain.controller.dto.request.CreateUserRequestDto;
-import com.example.wakeUp.domain.user.domain.service.UserService;
+import com.example.wakeUp.domain.user.controller.dto.request.CodeRequestDto;
+import com.example.wakeUp.domain.user.controller.dto.request.CreateUserRequestDto;
+import com.example.wakeUp.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -25,5 +23,12 @@ public class UserController {
     @GetMapping("/issue-code")
     public void issueCode() {
        userServiceImp.issueCode();
+    }
+
+    @PostMapping("/check-code")
+    public String checkCode(
+            @RequestBody CodeRequestDto request
+    ) {
+        return userServiceImp.checkCode(request.getCode());
     }
 }
