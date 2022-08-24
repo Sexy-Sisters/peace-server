@@ -1,7 +1,7 @@
 package com.example.wakeUp.domain.user.controller.dto.request;
 
 import com.example.wakeUp.domain.user.domain.User;
-import com.example.wakeUp.domain.user.domain.type.Role;
+import com.example.wakeUp.domain.user.domain.type.Authority;
 import lombok.Getter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -19,7 +19,7 @@ public class CreateUserRequestDto {
                 .nickName(nickName)
                 .email(email)
                 .password(passwordEncoder.encode(password))
-                .role(Role.ROLE_USER)
+                .authority(Authority.ROLE_USER)
                 .build();
     }
 }

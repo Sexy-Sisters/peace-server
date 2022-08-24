@@ -26,16 +26,15 @@ public class UserService implements UserServiceImp{
     @Override
     @Transactional
     public void signUp(CreateUserRequestDto request) {
-        userFacade.validateSignUp(request.getEmail());
 
+        userFacade.validateSignUp(request.getEmail());
         userRepository.save(request.toEntity(passwordEncoder));
     }
 
     @Transactional
-    public void issueCode() {
-        String email = userFacade.getFakeCurrentUser().getEmail();
-        String code = RandomUtil.issue();
+    public void issueCode(String email) {
 
+        String code = RandomUtil.issue();
         redisService.setDataExpire(email, code, Duration.ofMinutes(3));
 
         mailService.sendMail(
@@ -49,10 +48,9 @@ public class UserService implements UserServiceImp{
         );
     }
 
-    public String checkCode(String code) {
+    public String checkCode(String code, String email) {
 
-        userFacade.checkCode(code);
-
+        userFacade.checkCode(code, email);
         return "성공";
     }
 }

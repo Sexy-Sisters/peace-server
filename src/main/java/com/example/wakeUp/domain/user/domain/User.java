@@ -1,7 +1,7 @@
 package com.example.wakeUp.domain.user.domain;
 
 import com.example.wakeUp.domain.song.domain.Song;
-import com.example.wakeUp.domain.user.domain.type.Role;
+import com.example.wakeUp.domain.user.domain.type.Authority;
 import com.example.wakeUp.global.entity.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -32,18 +32,18 @@ public class User extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Role role;
+    private Authority authority;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Song> songList = new ArrayList<>();
 
     @Builder
-    public User(String name, String nickName, String email, String password, Role role, Song song) {
+    public User(String name, String nickName, String email, String password, Authority authority, Song song) {
         this.name = name;
         this.nickName = nickName;
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.authority = authority;
         this.songList.add(song);
     }
 }

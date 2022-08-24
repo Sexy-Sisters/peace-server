@@ -10,5 +10,4 @@ public class CodeMismatchException extends BusinessException {
     private CodeMismatchException() {
         super(ErrorCode.CODE_MISMATCH);
     }
-
 }

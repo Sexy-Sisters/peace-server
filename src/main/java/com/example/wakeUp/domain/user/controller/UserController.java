@@ -21,14 +21,16 @@ public class UserController {
     }
 
     @GetMapping("/issue-code")
-    public void issueCode() {
-       userServiceImp.issueCode();
+    public void issueCode(
+            @RequestParam String email
+    ) {
+       userServiceImp.issueCode(email);
     }
 
     @PostMapping("/check-code")
     public String checkCode(
             @RequestBody CodeRequestDto request
     ) {
-        return userServiceImp.checkCode(request.getCode());
+        return userServiceImp.checkCode(request.getCode(), request.getEmail());
     }
 }
