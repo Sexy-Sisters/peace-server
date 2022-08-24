@@ -45,8 +45,8 @@ public class AuthService {
     public void logout(HttpServletRequest request) {
 
         String accessToken = jwtTokenProvider.resolveToken(request);
-        Date expiration = jwtTokenProvider.getExpiredTime(accessToken);
-        redisService.setBlackList(accessToken, "logout", expiration.getTime());
+        long remainTime = jwtTokenProvider.getExpiredTime(accessToken).getTime() - new Date().getTime();
+        redisService.setBlackList(accessToken, "logout", remainTime);
 
         User user = userFacade.getCurrentUser();
         redisService.delete(user.getEmail());
