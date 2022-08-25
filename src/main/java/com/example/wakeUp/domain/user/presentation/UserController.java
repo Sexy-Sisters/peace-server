@@ -6,16 +6,19 @@ import com.example.wakeUp.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class UserController {
 
     private final UserService userServiceImp;
 
     @PostMapping
     public void signUp(
-            @RequestBody CreateUserRequestDto request
+            @RequestBody @Valid CreateUserRequestDto request
     ) {
         userServiceImp.signUp(request);
     }
