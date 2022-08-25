@@ -1,7 +1,7 @@
-package com.example.wakeUp.domain.user.controller;
+package com.example.wakeUp.domain.user.presentation;
 
-import com.example.wakeUp.domain.user.controller.dto.request.LoginRequestDto;
-import com.example.wakeUp.domain.user.controller.dto.response.TokenResponseDto;
+import com.example.wakeUp.domain.user.presentation.dto.request.LoginRequestDto;
+import com.example.wakeUp.domain.user.presentation.dto.response.TokenResponseDto;
 import com.example.wakeUp.domain.user.facade.UserFacade;
 import com.example.wakeUp.domain.user.service.AuthService;
 import com.example.wakeUp.global.security.jwt.JwtTokenProvider;

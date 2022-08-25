@@ -1,4 +1,4 @@
-package com.example.wakeUp.global.config.jpa;
+package com.example.wakeUp.global.jpa;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;

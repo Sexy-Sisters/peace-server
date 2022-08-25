@@ -1,4 +1,4 @@
-package com.example.wakeUp.domain.user.controller.dto.response;
+package com.example.wakeUp.domain.user.presentation.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
