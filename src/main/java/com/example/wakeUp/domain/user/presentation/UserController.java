@@ -1,7 +1,7 @@
-package com.example.wakeUp.domain.user.controller;
+package com.example.wakeUp.domain.user.presentation;
 
-import com.example.wakeUp.domain.user.controller.dto.request.CodeRequestDto;
-import com.example.wakeUp.domain.user.controller.dto.request.CreateUserRequestDto;
+import com.example.wakeUp.domain.user.presentation.dto.request.CodeRequestDto;
+import com.example.wakeUp.domain.user.presentation.dto.request.CreateUserRequestDto;
 import com.example.wakeUp.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

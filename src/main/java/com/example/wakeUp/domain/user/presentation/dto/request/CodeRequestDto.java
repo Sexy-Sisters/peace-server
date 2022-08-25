@@ -1,4 +1,4 @@
-package com.example.wakeUp.domain.user.controller.dto.request;
+package com.example.wakeUp.domain.user.presentation.dto.request;
 
 import lombok.Getter;
 

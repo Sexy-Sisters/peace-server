@@ -1,7 +1,7 @@
 package com.example.wakeUp.domain.user.service;
 
-import com.example.wakeUp.domain.user.controller.dto.request.LoginRequestDto;
-import com.example.wakeUp.domain.user.controller.dto.response.TokenResponseDto;
+import com.example.wakeUp.domain.user.presentation.dto.request.LoginRequestDto;
+import com.example.wakeUp.domain.user.presentation.dto.response.TokenResponseDto;
 import com.example.wakeUp.domain.user.domain.User;
 import com.example.wakeUp.domain.user.facade.UserFacade;
 import com.example.wakeUp.global.config.redis.RedisService;
@@ -45,8 +45,8 @@ public class AuthService {
     public void logout(HttpServletRequest request) {
 
         String accessToken = jwtTokenProvider.resolveToken(request);
-        Date expiration = jwtTokenProvider.getExpiredTime(accessToken);
-        redisService.setBlackList(accessToken, "logout", expiration.getTime());
+        long remainTime = jwtTokenProvider.getExpiredTime(accessToken).getTime() - new Date().getTime();
+        redisService.setBlackList(accessToken, "logout", remainTime);
 
         User user = userFacade.getCurrentUser();
         redisService.delete(user.getEmail());

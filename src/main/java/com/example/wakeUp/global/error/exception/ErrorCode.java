@@ -18,8 +18,10 @@ public enum ErrorCode {
 
     CODE_MISMATCH(401, "코드가 틀렸습니다."),
     EXPIRED_DATA(401, "만료된 데이터입니다."),
-    ALREADY_LOGOUT(401, "로그아웃된 유저입니다.")
+    ALREADY_LOGOUT(401, "로그아웃된 유저입니다."),
 
+    ALREADY_REQUEST_SONG(422, "하루에 한 곡만 신청할 수 있습니다."),
+    SONG_ALREADY_EXISTS(422, "오늘 이미 신청된 곡입니다."),
     ;
 
     private final int status;
