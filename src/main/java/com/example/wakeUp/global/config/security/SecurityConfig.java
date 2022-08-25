@@ -49,6 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth").permitAll()
                 .antMatchers(HttpMethod.GET,"/auth").permitAll()
+                .antMatchers(HttpMethod.POST, "/song").hasRole("USER")
                 .anyRequest().authenticated()
         ;
 

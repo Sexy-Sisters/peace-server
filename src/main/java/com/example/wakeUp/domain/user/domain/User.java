@@ -34,7 +34,7 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private Authority authority;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Song> songList = new ArrayList<>();
 
     @Builder
