@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -29,7 +30,10 @@ public class UserFacade {
         return userDetails.getUser();
     }
 
-
+    public String securityUtil() {
+        AuthDetails auth = (AuthDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return auth.getUser().getEmail();
+    }
     public void checkCode(String code, String email) {
 
         String findCode = redisService.getData(email);
