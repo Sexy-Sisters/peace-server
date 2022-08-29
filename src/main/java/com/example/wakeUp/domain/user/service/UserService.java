@@ -24,9 +24,7 @@ public class UserService implements UserServiceImp{
     private final RedisService redisService;
 
     @Override
-    @Transactional
     public void signUp(CreateUserRequestDto request) {
-
         userFacade.validateSignUp(request.getEmail());
         userRepository.save(request.toEntity(passwordEncoder));
     }
@@ -48,9 +46,8 @@ public class UserService implements UserServiceImp{
         );
     }
 
-    public String checkCode(String code, String email) {
-
+    public boolean checkCode(String code, String email) {
         userFacade.checkCode(code, email);
-        return "성공";
+        return true;
     }
 }

@@ -17,7 +17,6 @@ public class AuthController {
 
     private final AuthService authService;
     private final UserFacade userFacade;
-    private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping
     public TokenResponseDto login(
