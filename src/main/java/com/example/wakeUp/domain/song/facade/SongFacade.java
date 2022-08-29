@@ -1,5 +1,7 @@
 package com.example.wakeUp.domain.song.facade;
 
+import com.example.wakeUp.domain.song.domain.Song;
+import com.example.wakeUp.domain.song.exception.SongNotFoundException;
 import com.example.wakeUp.domain.song.presentation.dto.request.CreateSongRequestDto;
 import com.example.wakeUp.domain.song.domain.repository.SongRepository;
 import com.example.wakeUp.domain.song.exception.SongAlreadyExistsException;
@@ -22,5 +24,10 @@ public class SongFacade {
 
         else if (songRepository.existsByTitleAndSingerAndCreatedAtBetween(dto.getTitle(), dto.getSinger(), DateUtil.getToday(), DateUtil.getTomorrow()))
             throw SongAlreadyExistsException.EXCEPTION;
+    }
+
+    public Song findSongById(Long id) {
+        return songRepository.findById(id)
+                .orElseThrow(() -> SongNotFoundException.EXCEPTION);
     }
 }

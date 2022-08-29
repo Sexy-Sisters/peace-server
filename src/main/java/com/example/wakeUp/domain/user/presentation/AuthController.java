@@ -12,12 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
 
     private final AuthService authService;
     private final UserFacade userFacade;
-    private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping
     public TokenResponseDto login(
