@@ -10,6 +10,9 @@ spring:
     port: 6379
 
   jpa:
+    properties:
+      hibernate:
+        format_sql: true
     generate-ddl: true
     show-sql: true
     hibernate:
