@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,9 +33,9 @@ public class SongService {
         User user = userFacade.getCurrentUser();
         songFacade.validateRequestSong(dto, user);
         songRepository.save(dto.toEntity(user));
-
     }
 
+    @Transactional
     public void deleteSong(Long id) {
         Song song = songFacade.findSongById(id);
         songRepository.delete(song);
