@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
+@CrossOrigin("*")
 public class AuthController {
 
     private final AuthService authService;
