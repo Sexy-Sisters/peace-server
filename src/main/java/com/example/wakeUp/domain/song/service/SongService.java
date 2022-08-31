@@ -33,18 +33,12 @@ public class SongService {
         User user = userFacade.getCurrentUser();
         songFacade.validateRequestSong(dto, user);
         songRepository.save(dto.toEntity(user));
+        rankingService.push(song.getIdentify(), song.getUps().size());
     }
 
     @Transactional
     public void deleteSong(Long id) {
         Song song = songFacade.findSongById(id);
         songRepository.delete(song);
-    }
-
-    @Transactional(readOnly = true)
-    public List<SongResponseDto> getSongChart() {
-        return songRepository.findAllByCreatedAtBetween(DateUtil.getToday(), DateUtil.getTomorrow()).stream()
-                .map(SongResponseDto::of)
-                .collect(Collectors.toList());
     }
 }

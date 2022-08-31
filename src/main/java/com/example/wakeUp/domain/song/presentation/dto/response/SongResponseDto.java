@@ -1,7 +1,6 @@
 package com.example.wakeUp.domain.song.presentation.dto.response;
 
 import com.example.wakeUp.domain.song.domain.Song;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -16,7 +15,7 @@ public class SongResponseDto implements Serializable {
     private String singer;
     private int numberOfUps;
     private String userName;
-    private int elapsedHour;
+    private int createdHour;
 
     public static SongResponseDto of(Song song) {
         return SongResponseDto.builder()
@@ -25,7 +24,7 @@ public class SongResponseDto implements Serializable {
                 .singer(song.getSinger())
                 .numberOfUps(song.getUps().size())
                 .userName(song.getUser().getName())
-                .elapsedHour(song.getCreatedAt().getHour())
+                .createdHour(song.getCreatedAt().getHour())
                 .build();
     }
 }
