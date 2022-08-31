@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface SongRepository extends JpaRepository<Song, Long> {
 
@@ -14,5 +15,7 @@ public interface SongRepository extends JpaRepository<Song, Long> {
     boolean existsByTitleAndSingerAndCreatedAtBetween(String title, String singer, LocalDateTime today, LocalDateTime tomorrow);
 
     List<Song> findAllByCreatedAtBetween(LocalDateTime today, LocalDateTime tomorrow);
+
+    Optional<Song> findByIdentify(String id);
 }
 

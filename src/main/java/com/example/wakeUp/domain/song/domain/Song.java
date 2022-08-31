@@ -22,6 +22,9 @@ public class Song extends BaseTimeEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
+    private String identify;
+
     @Column(nullable = false)
     private String imgUrl;
 
@@ -39,10 +42,11 @@ public class Song extends BaseTimeEntity {
     private List<Up> ups = new ArrayList<>();
 
     @Builder
-    public Song(String imgUrl, String title, String singer, User user) {
+    public Song(String imgUrl, String title, String singer, User user, String identify) {
         this.imgUrl = imgUrl;
         this.title = title;
         this.singer = singer;
         this.user = user;
+        this.identify = identify;
     }
 }

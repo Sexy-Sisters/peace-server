@@ -27,24 +27,23 @@ public class SongService {
     private final SongRepository songRepository;
     private final UserFacade userFacade;
     private final SongFacade songFacade;
+    private final RankingService rankingService;
 
     @Transactional
     public void requestSong(CreateSongRequestDto dto) {
         User user = userFacade.getCurrentUser();
         songFacade.validateRequestSong(dto, user);
-        songRepository.save(dto.toEntity(user));
+        Song song = dto.toEntity(user);
+
+        rankingService.push(song.getIdentify(), song.getUps().size());
+        songRepository.save(song);
     }
 
     @Transactional
     public void deleteSong(Long id) {
         Song song = songFacade.findSongById(id);
-        songRepository.delete(song);
-    }
 
-    @Transactional(readOnly = true)
-    public List<SongResponseDto> getSongChart() {
-        return songRepository.findAllByCreatedAtBetween(DateUtil.getToday(), DateUtil.getTomorrow()).stream()
-                .map(SongResponseDto::of)
-                .collect(Collectors.toList());
+        rankingService.remove(song.getIdentify());
+        songRepository.delete(song);
     }
 }
