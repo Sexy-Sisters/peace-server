@@ -1,4 +1,4 @@
-package com.example.wakeUp.domain.song.service.facade;
+package com.example.wakeUp.domain.song.facade;
 
 import com.example.wakeUp.domain.song.domain.Song;
 import com.example.wakeUp.domain.song.domain.Up;
