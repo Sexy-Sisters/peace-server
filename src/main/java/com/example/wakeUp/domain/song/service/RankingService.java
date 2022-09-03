@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -27,6 +28,7 @@ public class RankingService {
         zSetOps = redisTemplate.opsForZSet();
     }
 
+
     public void push(String identify, int ups) {
         zSetOps.add(KEY, identify, ups);
     }
@@ -42,11 +44,12 @@ public class RankingService {
         }
     }
 
+    @Transactional(readOnly = true)
     public List<SongResponseDto> getRankingList() {
         Set<String> ranking = zSetOps.reverseRange(KEY, 0, 9);
-
         return ranking.stream()
-                .map(identify -> songFacade.findSongByIdentify(identify))
+                .limit(zSetOps.size(KEY)-1)
+                .map(songFacade::findSongByIdentify)
                 .map(SongResponseDto::of)
                 .collect(Collectors.toList());
     }
