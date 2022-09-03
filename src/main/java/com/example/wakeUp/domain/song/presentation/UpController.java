@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/song/{id}/up")
-@CrossOrigin("*")
 public class UpController {
 
     private final UpService upService;

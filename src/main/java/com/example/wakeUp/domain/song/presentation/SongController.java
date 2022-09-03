@@ -12,7 +12,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/song")
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class SongController {
 
     private final SongService songService;
