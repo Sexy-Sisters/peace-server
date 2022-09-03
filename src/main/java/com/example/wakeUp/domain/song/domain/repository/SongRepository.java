@@ -16,6 +16,6 @@ public interface SongRepository extends JpaRepository<Song, Long> {
 
     List<Song> findAllByCreatedAtBetween(LocalDateTime today, LocalDateTime tomorrow);
 
-    Optional<Song> findByIdentify(String id);
+    Optional<Song> findByIdentify(String identity);
 }
 
