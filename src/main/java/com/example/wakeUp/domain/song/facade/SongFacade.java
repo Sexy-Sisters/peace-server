@@ -31,8 +31,8 @@ public class SongFacade {
                 .orElseThrow(() -> SongNotFoundException.EXCEPTION);
     }
 
-    public Song findSongByIdentify(String id) {
-        return songRepository.findByIdentify(id)
+    public Song findSongByIdentify(String identify) {
+        return songRepository.findByIdentify(identify)
                 .orElseThrow(() -> SongNotFoundException.EXCEPTION);
     }
 }
