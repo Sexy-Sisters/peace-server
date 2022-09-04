@@ -2,7 +2,7 @@ package com.example.wakeUp.domain.song.presentation;
 
 import com.example.wakeUp.domain.song.presentation.dto.request.CreateSongRequestDto;
 import com.example.wakeUp.domain.song.presentation.dto.response.SongResponseDto;
-import com.example.wakeUp.domain.song.service.RankingService;
+import com.example.wakeUp.domain.song.service.DailyRankingService;
 import com.example.wakeUp.domain.song.service.SongService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +15,7 @@ import java.util.List;
 public class SongController {
 
     private final SongService songService;
-    private final RankingService rankingService;
+    private final DailyRankingService dailyRankingService;
 
     @PostMapping
     public void requestSong(
@@ -34,6 +34,6 @@ public class SongController {
 
     @GetMapping
     public List<SongResponseDto> getSongChart() {
-        return rankingService.getRankingList();
+        return dailyRankingService.getRankingList();
     }
 }

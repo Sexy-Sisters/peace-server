@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class RankingService {
+public class DailyRankingService {
 
     private final RedisTemplate redisTemplate;
     private ZSetOperations<String, String> zSetOps;
@@ -48,7 +48,7 @@ public class RankingService {
         Set<String> ranking = zSetOps.reverseRange(KEY, 0, 9);
 
         long setSize = zSetOps.size(KEY);
-        long limitSize = setSize <= 9 ? setSize : 9;
+        long limitSize = setSize < 10 ? setSize : 10;
 
         return ranking.stream()
                 .limit(limitSize)

@@ -19,7 +19,7 @@ public class UpService {
     private final UserFacade userFacade;
     private final SongFacade songFacade;
     private final UpFacade upFacade;
-    private final RankingService rankingService;
+    private final DailyRankingService dailyRankingService;
 
     @Transactional
     public void pushUp(Long id) {
@@ -28,7 +28,8 @@ public class UpService {
         upFacade.validatePushUp(user, song);
         upRepository.save(Up.createUp(user, song));
 
-        rankingService.push(song.getIdentify(), song.getUps().size());
+        chartService.increasePoint(song.getTitle(), song.getSinger());
+        dailyRankingService.push(song.getIdentify(), song.getUps().size());
     }
 
     @Transactional
@@ -38,6 +39,7 @@ public class UpService {
         upFacade.validateCancelUp(user, song);
         upRepository.delete(upFacade.findUpByUserSong(user, song));
 
-        rankingService.push(song.getIdentify(), song.getUps().size());
+        chartService.decreasePoint(song.getTitle(), song.getSinger());
+        dailyRankingService.push(song.getIdentify(), song.getUps().size());
     }
 }

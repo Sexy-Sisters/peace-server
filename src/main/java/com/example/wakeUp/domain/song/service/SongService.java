@@ -5,20 +5,12 @@ import com.example.wakeUp.domain.song.presentation.dto.request.CreateSongRequest
 import com.example.wakeUp.domain.song.domain.Song;
 import com.example.wakeUp.domain.song.domain.repository.SongRepository;
 import com.example.wakeUp.domain.song.facade.SongFacade;
-import com.example.wakeUp.domain.song.presentation.dto.response.SongResponseDto;
 import com.example.wakeUp.domain.user.domain.User;
-import com.example.wakeUp.domain.user.domain.repository.UserRepository;
 import com.example.wakeUp.domain.user.facade.UserFacade;
-import com.example.wakeUp.global.Utils.DateUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManager;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +20,7 @@ public class SongService {
     private final SongRepository songRepository;
     private final UserFacade userFacade;
     private final SongFacade songFacade;
-    private final RankingService rankingService;
+    private final DailyRankingService dailyRankingService;
     private final ChartService chartService;
 
     @Transactional
@@ -39,7 +31,7 @@ public class SongService {
         Song song = dto.toEntity(user);
         chartService.addChart(song);
 
-        rankingService.push(song.getIdentify(), song.getUps().size());
+        dailyRankingService.push(song.getIdentify(), song.getUps().size());
         songRepository.save(song);
     }
 
@@ -47,7 +39,7 @@ public class SongService {
     public void deleteSong(Long id) {
         Song song = songFacade.findSongById(id);
 
-        rankingService.remove(song.getIdentify());
+        dailyRankingService.remove(song.getIdentify());
         songRepository.delete(song);
     }
 }
