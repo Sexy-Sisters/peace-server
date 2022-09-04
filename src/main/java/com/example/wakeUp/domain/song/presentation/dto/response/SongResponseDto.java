@@ -10,6 +10,7 @@ import java.io.Serializable;
 @Getter
 public class SongResponseDto implements Serializable {
 
+    private Long id;
     private String imgUrl;
     private String title;
     private String singer;
@@ -19,6 +20,7 @@ public class SongResponseDto implements Serializable {
 
     public static SongResponseDto of(Song song) {
         return SongResponseDto.builder()
+                .id(song.getId())
                 .imgUrl(song.getImgUrl())
                 .title(song.getTitle())
                 .singer(song.getSinger())
