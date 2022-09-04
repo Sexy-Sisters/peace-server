@@ -1,5 +1,6 @@
 package com.example.wakeUp.domain.song.service;
 
+import com.example.wakeUp.domain.chart.service.ChartService;
 import com.example.wakeUp.domain.song.presentation.dto.request.CreateSongRequestDto;
 import com.example.wakeUp.domain.song.domain.Song;
 import com.example.wakeUp.domain.song.domain.repository.SongRepository;
@@ -28,12 +29,15 @@ public class SongService {
     private final UserFacade userFacade;
     private final SongFacade songFacade;
     private final RankingService rankingService;
+    private final ChartService chartService;
 
     @Transactional
     public void requestSong(CreateSongRequestDto dto) {
         User user = userFacade.getCurrentUser();
         songFacade.validateRequestSong(dto, user);
+
         Song song = dto.toEntity(user);
+        chartService.addChart(song);
 
         rankingService.push(song.getIdentify(), song.getUps().size());
         songRepository.save(song);
