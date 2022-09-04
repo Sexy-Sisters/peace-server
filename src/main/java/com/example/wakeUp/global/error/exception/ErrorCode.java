@@ -12,6 +12,8 @@ public enum ErrorCode {
     INVALID_TOKEN(401, "유효하지 않은 토큰입니다."),
     EXPIRED_TOKEN(401, "만료된 토큰입니다."),
 
+    EMPTY_STRING( 400, "비어있는 문자열입니다."),
+
     USER_NOT_FOUND(404, "사용자를 찾을 수 없습니다."),
     USER_ALREADY_EXISTS(422, "사용자가 이미 존재합니다."),
     PASSWORD_MISMATCH(401, "비밀번호가 틀렸습니다."),
@@ -27,7 +29,8 @@ public enum ErrorCode {
     ALREADY_PUSH_UP(401, "업은 한 번만 누를 수 있습니다."),
     UP_NOT_FOUND(404, "업을 누른적이 없습니다."),
 
-    EMPTY_STRING( 400, "비어있는 문자열입니다."),
+
+    CHART_NOT_FOUND(404, "차트를 찾을 수 없습니다."),
 
     ;
 
