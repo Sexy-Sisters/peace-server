@@ -28,7 +28,6 @@ public class RankingService {
         zSetOps = redisTemplate.opsForZSet();
     }
 
-
     public void push(String identify, int ups) {
         zSetOps.add(KEY, identify, ups);
     }
@@ -47,8 +46,12 @@ public class RankingService {
     @Transactional(readOnly = true)
     public List<SongResponseDto> getRankingList() {
         Set<String> ranking = zSetOps.reverseRange(KEY, 0, 9);
+
+        long setSize = zSetOps.size(KEY);
+        long limitSize = setSize <= 9 ? setSize : 9;
+
         return ranking.stream()
-                .limit(zSetOps.size(KEY)-1)
+                .limit(limitSize)
                 .map(songFacade::findSongByIdentify)
                 .map(SongResponseDto::of)
                 .collect(Collectors.toList());
