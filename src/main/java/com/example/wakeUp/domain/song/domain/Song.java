@@ -42,7 +42,8 @@ public class Song extends BaseTimeEntity {
     private List<Up> ups = new ArrayList<>();
 
     @Builder
-    public Song(String imgUrl, String title, String singer, User user, String identify) {
+    public Song(Long id, String imgUrl, String title, String singer, User user, String identify) {
+        this.id = id;
         this.imgUrl = imgUrl;
         this.title = title;
         this.singer = singer;
