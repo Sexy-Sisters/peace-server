@@ -26,6 +26,9 @@ public enum ErrorCode {
 
     ALREADY_PUSH_UP(401, "업은 한 번만 누를 수 있습니다."),
     UP_NOT_FOUND(404, "업을 누른적이 없습니다."),
+
+    EMPTY_STRING( 400, "비어있는 문자열입니다."),
+
     ;
 
     private final int status;
