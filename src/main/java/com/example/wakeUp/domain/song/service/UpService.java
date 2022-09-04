@@ -1,5 +1,6 @@
 package com.example.wakeUp.domain.song.service;
 
+import com.example.wakeUp.domain.chart.service.ChartService;
 import com.example.wakeUp.domain.song.domain.Song;
 import com.example.wakeUp.domain.song.domain.Up;
 import com.example.wakeUp.domain.song.domain.repository.UpRepository;
@@ -20,15 +21,18 @@ public class UpService {
     private final SongFacade songFacade;
     private final UpFacade upFacade;
     private final DailyRankingService dailyRankingService;
+    private final ChartService chartService;
 
     @Transactional
     public void pushUp(Long id) {
         User user = userFacade.findByEmail(userFacade.securityUtil());
         Song song = songFacade.findSongById(id);
+
         upFacade.validatePushUp(user, song);
         upRepository.save(Up.createUp(user, song));
 
         chartService.increasePoint(song.getTitle(), song.getSinger());
+
         dailyRankingService.push(song.getIdentify(), song.getUps().size());
     }
 
@@ -36,10 +40,12 @@ public class UpService {
     public void cancelUp(Long id) {
         User user = userFacade.findByEmail(userFacade.securityUtil());
         Song song = songFacade.findSongById(id);
+
         upFacade.validateCancelUp(user, song);
         upRepository.delete(upFacade.findUpByUserSong(user, song));
 
         chartService.decreasePoint(song.getTitle(), song.getSinger());
+
         dailyRankingService.push(song.getIdentify(), song.getUps().size());
     }
 }
