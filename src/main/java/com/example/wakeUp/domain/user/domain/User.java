@@ -1,5 +1,6 @@
 package com.example.wakeUp.domain.user.domain;
 
+import com.example.wakeUp.domain.chart.domain.Like;
 import com.example.wakeUp.domain.song.domain.Song;
 import com.example.wakeUp.domain.song.domain.Up;
 import com.example.wakeUp.domain.user.domain.type.Authority;
@@ -45,6 +46,9 @@ public class User extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "user", cascade = ALL)
     private List<Up> ups = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = ALL)
+    private List<Like> likes = new ArrayList<>();
 
     @Builder
     public User(String name, String nickName, String email, String password, Authority authority) {

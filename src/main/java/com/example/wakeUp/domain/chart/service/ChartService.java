@@ -14,11 +14,14 @@ public class ChartService {
 
     private final ChartRepository chartRepository;
     private final ChartFacade chartFacade;
+    private final MonthlyRankingService monthlyRankingService;
 
     @Transactional
     public void addChart(Song song) {
         if (!chartRepository.existsByTitleAndSinger(song.getTitle(), song.getSinger())) {
-            chartRepository.save(Chart.createChart(song));
+            Chart chart = chartRepository.save(Chart.createChart(song));
+
+            monthlyRankingService.push(chart.getRedisKey(), chart.getPoint());
         }
     }
 
@@ -26,11 +29,15 @@ public class ChartService {
     public void increasePoint(String title, String singer) {
         Chart chart = chartFacade.findChartByTitleAndSinger(title, singer);
         chart.increasePoint();
+
+        monthlyRankingService.push(chart.getRedisKey(), chart.getPoint());
     }
 
     @Transactional
     public void decreasePoint(String title, String singer) {
         Chart chart = chartFacade.findChartByTitleAndSinger(title, singer);
         chart.decreasePoint();
+
+        monthlyRankingService.push(chart.getRedisKey(), chart.getPoint());
     }
 }

@@ -20,27 +20,31 @@ public class Chart extends BaseTimeEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "img_url", nullable = false, unique = true)
+    @Column(name = "img_url", nullable = false)
     private String imgUrl;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String singer;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private int point;
+
+    @Column(name = "redis_key", nullable = false, unique = true)
+    private String redisKey;
 
     @OneToMany(mappedBy = "chart")
     private List<Like> likes = new ArrayList<>();
 
     @Builder
-    public Chart (String imgUrl, String title, String singer, int point) {
+    public Chart (String imgUrl, String title, String singer, int point, String redisKey) {
         this.imgUrl = imgUrl;
         this.title = title;
         this.singer = singer;
         this.point = point;
+        this.redisKey = redisKey;
     }
 
     public static Chart createChart(Song song) {
@@ -49,6 +53,7 @@ public class Chart extends BaseTimeEntity {
                 .title(song.getTitle())
                 .singer(song.getSinger())
                 .point(0)
+                .redisKey(song.getTitle()+"@"+song.getSinger())
                 .build();
     }
 
