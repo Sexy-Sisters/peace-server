@@ -36,7 +36,7 @@ public class SongService {
         String redisKey = song.getTitle()+"@"+song.getSinger();
         monthlyRankingService.push(redisKey, 0);
 
-        dailyRankingService.push(song.getIdentify(), song.getUps().size());
+        dailyRankingService.push(song);
         songRepository.save(song);
     }
 
@@ -44,7 +44,7 @@ public class SongService {
     public void deleteSong(Long id) {
         Song song = songFacade.findSongById(id);
 
-        dailyRankingService.remove(song.getIdentify());
+        dailyRankingService.remove(song);
 
         String redisKey = song.getTitle()+"@"+song.getSinger();
         monthlyRankingService.remove(redisKey);
