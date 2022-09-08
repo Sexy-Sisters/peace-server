@@ -16,4 +16,9 @@ public class ChartFacade {
         return chartRepository.findByTitleAndSinger(title, singer)
                 .orElseThrow(() -> ChartNotFoundException.EXCEPTION);
     }
+
+    public Chart findChartByRedisKey(String redisKey) {
+        return chartRepository.findByRedisKey(redisKey)
+                .orElseThrow(() -> ChartNotFoundException.EXCEPTION);
+    }
 }

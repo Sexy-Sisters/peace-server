@@ -21,7 +21,7 @@ public class DailyRankingService {
     private ZSetOperations<String, String> zSetOps;
     private final SongFacade songFacade;
 
-    private final String KEY = "BSSM_CHART";
+    private final String KEY = "BSSM-CHART";
 
     @PostConstruct
     public void init() {
@@ -32,13 +32,12 @@ public class DailyRankingService {
         zSetOps.add(KEY, identify, ups);
     }
 
-    public void remove(String id) {
-        zSetOps.remove(KEY, id);
+    public void remove(String identify) {
+        zSetOps.remove(KEY, identify);
     }
 
     public void removeAll() {
         while(zSetOps.size(KEY) != 0) {
-            System.out.println(zSetOps.size(KEY));
             zSetOps.popMax(KEY);
         }
     }

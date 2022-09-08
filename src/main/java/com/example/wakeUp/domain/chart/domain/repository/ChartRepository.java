@@ -10,4 +10,6 @@ public interface ChartRepository extends JpaRepository<Chart, Long> {
     boolean existsByTitleAndSinger(String title, String singer);
 
     Optional<Chart> findByTitleAndSinger(String title, String singer);
+
+    Optional<Chart> findByRedisKey(String redisKey);
 }
