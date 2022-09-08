@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/chart")
@@ -19,8 +19,8 @@ public class ChartController {
     private final MonthlyRankingService monthlyRankingService;
 
     @GetMapping
-    public List<ChartResponseDto> getMonthlyRanking() {
+    public Set<ChartResponseDto> getMonthlyRanking() {
         log.info("<<<<<<<<<<<<<<< url: [ /api/chart ] >>>>>>>>>>>>>>>");
-        return monthlyRankingService.getMonthlyRankingList();
+        return monthlyRankingService.getMonthlyRankingSet();
     }
 }

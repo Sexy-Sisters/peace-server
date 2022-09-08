@@ -33,7 +33,7 @@ public class UpService {
 
         chartService.increasePoint(song.getTitle(), song.getSinger());
 
-        dailyRankingService.push(song.getIdentify(), song.getUps().size());
+        dailyRankingService.push(song);
     }
 
     @Transactional
@@ -46,6 +46,6 @@ public class UpService {
 
         chartService.decreasePoint(song.getTitle(), song.getSinger());
 
-        dailyRankingService.push(song.getIdentify(), song.getUps().size());
+        dailyRankingService.push(song);
     }
 }

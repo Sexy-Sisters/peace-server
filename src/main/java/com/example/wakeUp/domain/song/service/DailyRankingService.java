@@ -1,15 +1,13 @@
 package com.example.wakeUp.domain.song.service;
 
+import com.example.wakeUp.domain.song.domain.Song;
 import com.example.wakeUp.domain.song.facade.SongFacade;
 import com.example.wakeUp.domain.song.presentation.dto.response.SongResponseDto;
+import com.example.wakeUp.global.config.redis.RedisSortedSetService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ZSetOperations;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -17,42 +15,32 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class DailyRankingService {
 
-    private final RedisTemplate redisTemplate;
-    private ZSetOperations<String, String> zSetOps;
+    private final RedisSortedSetService redisSortedSetService;
     private final SongFacade songFacade;
 
-    private final String KEY = "BSSM-CHART";
+    @Value("spring.redis.keys.daily-chart")
+    private String KEY;
 
-    @PostConstruct
-    public void init() {
-        zSetOps = redisTemplate.opsForZSet();
+    public void push(Song song) {
+        redisSortedSetService.push(KEY, song.getIdentify(), song.getUps().size());
     }
 
-    public void push(String identify, int ups) {
-        zSetOps.add(KEY, identify, ups);
-    }
-
-    public void remove(String identify) {
-        zSetOps.remove(KEY, identify);
+    public void remove(Song song) {
+        redisSortedSetService.remove(KEY, song.getIdentify());
     }
 
     public void removeAll() {
-        while(zSetOps.size(KEY) != 0) {
-            zSetOps.popMax(KEY);
-        }
+        redisSortedSetService.removeAll(KEY);
     }
 
-    @Transactional(readOnly = true)
-    public List<SongResponseDto> getRankingList() {
-        Set<String> ranking = zSetOps.reverseRange(KEY, 0, 9);
+    public Set<SongResponseDto> getRankingList() {
+        long size = redisSortedSetService.getSize(KEY);
+        long limitSize = size < 10 ? size : 10;
 
-        long setSize = zSetOps.size(KEY);
-        long limitSize = setSize < 10 ? setSize : 10;
-
-        return ranking.stream()
+        return redisSortedSetService.getRankingList(KEY, 0, 10).stream()
                 .limit(limitSize)
                 .map(songFacade::findSongByIdentify)
                 .map(SongResponseDto::of)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 }
