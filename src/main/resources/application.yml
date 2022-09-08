@@ -9,6 +9,12 @@ spring:
     host: localhost
     port: 6380
 
+    keys:
+      dayily-chart: DAILY-CHART
+      monthly-chart: MONTHLY-CHART
+
+
+
   jpa:
     properties:
       hibernate:
