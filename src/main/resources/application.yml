@@ -10,7 +10,7 @@ spring:
     port: 6380
 
     keys:
-      dayily-chart: DAILY-CHART
+      daily-chart: DAILY-CHART
       monthly-chart: MONTHLY-CHART
 
 

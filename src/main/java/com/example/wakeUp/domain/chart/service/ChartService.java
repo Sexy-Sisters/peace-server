@@ -20,8 +20,7 @@ public class ChartService {
     public void addChart(Song song) {
         if (!chartRepository.existsByTitleAndSinger(song.getTitle(), song.getSinger())) {
             Chart chart = chartRepository.save(Chart.createChart(song));
-
-            monthlyRankingService.push(chart.getRedisKey(), chart.getPoint());
+            monthlyRankingService.push(chart);
         }
     }
 
@@ -30,7 +29,7 @@ public class ChartService {
         Chart chart = chartFacade.findChartByTitleAndSinger(title, singer);
         chart.increasePoint();
 
-        monthlyRankingService.push(chart.getRedisKey(), chart.getPoint());
+        monthlyRankingService.push(chart);
     }
 
     @Transactional
@@ -38,6 +37,6 @@ public class ChartService {
         Chart chart = chartFacade.findChartByTitleAndSinger(title, singer);
         chart.decreasePoint();
 
-        monthlyRankingService.push(chart.getRedisKey(), chart.getPoint());
+        monthlyRankingService.push(chart);
     }
 }
