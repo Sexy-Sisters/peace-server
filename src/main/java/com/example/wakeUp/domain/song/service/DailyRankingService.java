@@ -5,9 +5,9 @@ import com.example.wakeUp.domain.song.facade.SongFacade;
 import com.example.wakeUp.domain.song.presentation.dto.response.SongResponseDto;
 import com.example.wakeUp.global.config.redis.RedisSortedSetService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -32,7 +32,7 @@ public class DailyRankingService {
         redisSortedSetService.removeAll(KEY);
     }
 
-    public Set<SongResponseDto> getRankingList() {
+    public List<SongResponseDto> getRankingList() {
         long size = redisSortedSetService.getSize(KEY);
         long limitSize = size < 10 ? size : 10;
 
@@ -40,6 +40,6 @@ public class DailyRankingService {
                 .limit(limitSize)
                 .map(songFacade::findSongByIdentify)
                 .map(SongResponseDto::of)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 }

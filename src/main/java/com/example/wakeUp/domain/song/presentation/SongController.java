@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api/song")
@@ -33,7 +32,7 @@ public class SongController {
     }
 
     @GetMapping
-    public Set<SongResponseDto> getSongChart() {
+    public List<SongResponseDto> getSongChart() {
         return dailyRankingService.getRankingList();
     }
 }
