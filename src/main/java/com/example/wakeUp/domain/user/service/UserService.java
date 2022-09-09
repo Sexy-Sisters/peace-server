@@ -25,7 +25,7 @@ public class UserService implements UserServiceImp{
 
     @Override
     public void signUp(CreateUserRequestDto request) {
-        userFacade.validateSignUp(request.getEmail());
+        userFacade.validateSignUp(request.getEmail(), request.getName());
         userRepository.save(request.toEntity(passwordEncoder));
     }
 

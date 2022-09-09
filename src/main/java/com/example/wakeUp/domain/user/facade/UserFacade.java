@@ -21,8 +21,8 @@ public class UserFacade {
     private final RedisService redisService;
     private final PasswordEncoder passwordEncoder;
 
-    public void validateSignUp(String email) {
-        if (userRepository.existsByEmail(email)) {
+    public void validateSignUp(String email, String name) {
+        if (userRepository.existsByEmail(email) || userRepository.existsByName(name)) {
             throw UserAlreadyExistsException.EXCEPTION;
         }
     }
