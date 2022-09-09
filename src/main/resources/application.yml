@@ -9,12 +9,6 @@ spring:
     host: localhost
     port: 6380
 
-    keys:
-      daily-chart: DAILY-CHART
-      monthly-chart: MONTHLY-CHART
-
-
-
   jpa:
     properties:
       hibernate:
@@ -39,7 +33,6 @@ spring:
 
   jwt:
     secret: aGVsbG9Xb3JsZElzTXlMaWZlQmVjdWFzZU15TGlmZVNPR29vZEJlY2F1c2VGdWNrWW91U2h1dFVw
-
 
 server:
   port: 8090

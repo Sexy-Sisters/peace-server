@@ -19,9 +19,7 @@ public class MonthlyRankingService {
     private final RedisSortedSetService redisSortedSetService;
     private final ChartFacade chartFacade;
 
-
-    @Value("spring.redis.keys.monthly-chart")
-    private String KEY;
+    private final String KEY = "MONTHLY-CHART";
 
     public void push(Chart chart) {
         redisSortedSetService.push(KEY, chart.getRedisKey(), chart.getPoint());

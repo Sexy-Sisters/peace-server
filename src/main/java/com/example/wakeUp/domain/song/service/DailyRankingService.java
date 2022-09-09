@@ -18,8 +18,7 @@ public class DailyRankingService {
     private final RedisSortedSetService redisSortedSetService;
     private final SongFacade songFacade;
 
-    @Value("spring.redis.keys.daily-chart")
-    private String KEY;
+    private final String KEY = "DAILY-CHART";
 
     public void push(Song song) {
         redisSortedSetService.push(KEY, song.getIdentify(), song.getUps().size());
