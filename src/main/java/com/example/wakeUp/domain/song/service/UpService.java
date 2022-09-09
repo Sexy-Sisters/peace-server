@@ -9,6 +9,7 @@ import com.example.wakeUp.domain.song.facade.UpFacade;
 import com.example.wakeUp.domain.user.domain.User;
 import com.example.wakeUp.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.resource.transaction.spi.DdlTransactionIsolator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,5 +48,13 @@ public class UpService {
         chartService.decreasePoint(song.getTitle(), song.getSinger());
 
         dailyRankingService.push(song);
+    }
+
+    @Transactional
+    public boolean isPush(Long id) {
+        User user = userFacade.getCurrentUser();
+        Song song = songFacade.findSongById(id);
+
+        return upRepository.existsByUserAndSong(user, song);
     }
 }
