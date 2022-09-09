@@ -5,11 +5,10 @@ import com.example.wakeUp.domain.chart.dto.ChartResponseDto;
 import com.example.wakeUp.domain.chart.facade.ChartFacade;
 import com.example.wakeUp.global.config.redis.RedisSortedSetService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,9 +18,7 @@ public class MonthlyRankingService {
     private final RedisSortedSetService redisSortedSetService;
     private final ChartFacade chartFacade;
 
-
-    @Value("spring.redis.keys.monthly-chart")
-    private String KEY;
+    private final String KEY = "MONTHLY-CHART";
 
     public void push(Chart chart) {
         redisSortedSetService.push(KEY, chart.getRedisKey(), chart.getPoint());
@@ -36,7 +33,7 @@ public class MonthlyRankingService {
     }
 
     @Transactional(readOnly = true)
-    public Set<ChartResponseDto> getMonthlyRankingSet() {
+    public List<ChartResponseDto> getMonthlyRankingSet() {
         long setSize = redisSortedSetService.getSize(KEY);
         long limitSize = setSize < 20 ? setSize : 20;
 
@@ -44,6 +41,6 @@ public class MonthlyRankingService {
                 .limit(limitSize)
                 .map(chartFacade::findChartByRedisKey)
                 .map(ChartResponseDto::of)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 }
