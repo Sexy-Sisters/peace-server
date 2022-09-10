@@ -2,7 +2,10 @@ package com.example.wakeUp.domain.song.domain.repository;
 
 import com.example.wakeUp.domain.song.domain.Song;
 import com.example.wakeUp.domain.user.domain.User;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,8 +17,7 @@ public interface SongRepository extends JpaRepository<Song, Long> {
 
     boolean existsByTitleAndSingerAndCreatedAtBetween(String title, String singer, LocalDateTime today, LocalDateTime tomorrow);
 
-    List<Song> findAllByCreatedAtBetween(LocalDateTime today, LocalDateTime tomorrow);
-
-    Optional<Song> findByIdentify(String identity);
+    @EntityGraph(attributePaths = {"ups", "user"})
+    Optional<Song> findByIdentify(String identify);
 }
 
