@@ -24,4 +24,11 @@ public class UpController {
     ) {
         upService.cancelUp(id);
     }
+
+    @GetMapping
+    public boolean isPush(
+            @PathVariable Long id
+    ) {
+        return upService.isPush(id);
+    }
 }
