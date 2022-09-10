@@ -14,15 +14,15 @@ public class UpController {
     private final UpService upService;
 
     @PostMapping
-    public void pushUp(@PathVariable Long id) {
+    public int pushUp(@PathVariable Long id) {
         log.info("<<<<<====== [POST]: /api/song/{id}/up =====>>>>>");
-        upService.pushUp(id);
+        return upService.pushUp(id);
     }
 
     @DeleteMapping
-    public void deleteUp(@PathVariable Long id) {
+    public int deleteUp(@PathVariable Long id) {
         log.info("<<<<<====== [DELETE]: /api/song/{id}/up =====>>>>>");
-        upService.cancelUp(id);
+        return upService.cancelUp(id);
     }
 
     @GetMapping

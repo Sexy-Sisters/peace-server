@@ -9,7 +9,6 @@ import com.example.wakeUp.domain.song.facade.UpFacade;
 import com.example.wakeUp.domain.user.domain.User;
 import com.example.wakeUp.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.resource.transaction.spi.DdlTransactionIsolator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +24,7 @@ public class UpService {
     private final ChartService chartService;
 
     @Transactional
-    public void pushUp(Long id) {
+    public int pushUp(Long id) {
         User user = userFacade.findByEmail(userFacade.securityUtil());
         Song song = songFacade.findSongById(id);
 
@@ -35,10 +34,12 @@ public class UpService {
         chartService.increasePoint(song.getTitle(), song.getSinger());
 
         dailyRankingService.push(song);
+
+        return song.getUps().size()-1;
     }
 
     @Transactional
-    public void cancelUp(Long id) {
+    public int cancelUp(Long id) {
         User user = userFacade.findByEmail(userFacade.securityUtil());
         Song song = songFacade.findSongById(id);
 
@@ -48,6 +49,8 @@ public class UpService {
         chartService.decreasePoint(song.getTitle(), song.getSinger());
 
         dailyRankingService.push(song);
+
+        return song.getUps().size()-1;
     }
 
     @Transactional
