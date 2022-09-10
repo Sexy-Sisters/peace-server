@@ -20,7 +20,7 @@ public class ChartController {
 
     @GetMapping
     public List<ChartResponseDto> getMonthlyRanking() {
-        log.info("<<<<<<<<<<<<<<< url: [ /api/chart ] >>>>>>>>>>>>>>>");
+        log.info("<<<<<====== [GET]: /api/chart =====>>>>>");
         return monthlyRankingService.getMonthlyRankingSet();
     }
 }

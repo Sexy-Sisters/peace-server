@@ -5,6 +5,7 @@ import com.example.wakeUp.domain.song.presentation.dto.response.SongResponseDto;
 import com.example.wakeUp.domain.song.service.DailyRankingService;
 import com.example.wakeUp.domain.song.service.SongService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,27 +13,27 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/song")
 @RequiredArgsConstructor
+@Slf4j
 public class SongController {
 
     private final SongService songService;
     private final DailyRankingService dailyRankingService;
 
     @PostMapping
-    public void requestSong(
-            @RequestBody CreateSongRequestDto dto
-    ) {
+    public void requestSong(@RequestBody CreateSongRequestDto dto) {
+        log.info("<<<<<====== [POST]: /api/song =====>>>>>");
         songService.requestSong(dto);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteSong(
-            @PathVariable Long id
-    ) {
+    public void deleteSong(@PathVariable Long id) {
+        log.info("<<<<<====== [DELETE]: /api/song =====>>>>>");
         songService.deleteSong(id);
     }
 
     @GetMapping
     public List<SongResponseDto> getSongChart() {
+        log.info("<<<<<====== [GET]: /api/song =====>>>>>");
         return dailyRankingService.getRankingList();
     }
 }
