@@ -41,6 +41,9 @@ public class SongService {
     @Transactional
     public void deleteSong(Long id) {
         Song song = songFacade.findSongById(id);
+        User user = userFacade.getCurrentUser();
+
+        songFacade.validateDeleteSong(song, user);
 
         dailyRankingService.remove(song);
 
