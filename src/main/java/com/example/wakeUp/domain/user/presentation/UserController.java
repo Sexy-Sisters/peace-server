@@ -36,10 +36,4 @@ public class UserController {
         log.info("<<<<<====== [POST]: /api/user/check-code =====>>>>>");
         return userServiceImp.checkCode(request.getCode(), request.getEmail());
     }
-
-    @DeleteMapping
-    public void deleteAll() {
-        log.info("<<<<<====== [DELETE]: /api/user =====>>>>>");
-        userRepository.deleteAll();
-    }
 }
