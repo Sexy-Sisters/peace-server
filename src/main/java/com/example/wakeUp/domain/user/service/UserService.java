@@ -1,8 +1,14 @@
 package com.example.wakeUp.domain.user.service;
 
-import com.example.wakeUp.domain.user.presentation.dto.request.CreateUserRequestDto;
+import com.example.wakeUp.domain.song.domain.Song;
+import com.example.wakeUp.domain.song.exception.SongNotFoundException;
+import com.example.wakeUp.domain.song.facade.SongFacade;
+import com.example.wakeUp.domain.user.domain.User;
 import com.example.wakeUp.domain.user.domain.repository.UserRepository;
 import com.example.wakeUp.domain.user.facade.UserFacade;
+import com.example.wakeUp.domain.user.presentation.dto.request.CreateUserRequestDto;
+import com.example.wakeUp.domain.user.presentation.dto.response.MyPageResponseDto;
+import com.example.wakeUp.global.Utils.DateUtil;
 import com.example.wakeUp.global.Utils.RandomUtil;
 import com.example.wakeUp.global.config.redis.RedisService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +28,7 @@ public class UserService implements UserServiceImp{
     private final UserFacade userFacade;
     private final MailService mailService;
     private final RedisService redisService;
+    private final SongFacade songFacade;
 
     @Override
     public void signUp(CreateUserRequestDto request) {
@@ -51,5 +58,12 @@ public class UserService implements UserServiceImp{
         userFacade.checkCode(code, email);
         redisService.delete(email);
         return true;
+    }
+
+    @Transactional(readOnly = true)
+    public MyPageResponseDto findMyPage() {
+        User user = userFacade.getCurrentUser();
+        Song song = songFacade.findTodaySongByUser(user, DateUtil.getToday());
+        return MyPageResponseDto.of(user, song);
     }
 }
