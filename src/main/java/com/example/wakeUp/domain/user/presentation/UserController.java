@@ -25,13 +25,13 @@ public class UserController {
         userServiceImp.signUp(request);
     }
 
-    @GetMapping("/issue-code")
+    @PostMapping("/issue-code")
     public void issueCode(@RequestParam String email) {
         log.info("<<<<<====== [GET]: /api/user =====>>>>>");
         userServiceImp.issueCode(email);
     }
 
-    @PostMapping("/check-code")
+    @DeleteMapping("/check-code")
     public boolean checkCode(@RequestBody CodeRequestDto request) {
         log.info("<<<<<====== [POST]: /api/user/check-code =====>>>>>");
         return userServiceImp.checkCode(request.getCode(), request.getEmail());

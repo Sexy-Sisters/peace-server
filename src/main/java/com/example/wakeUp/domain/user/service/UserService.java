@@ -46,8 +46,10 @@ public class UserService implements UserServiceImp{
         );
     }
 
+    @Transactional
     public boolean checkCode(String code, String email) {
         userFacade.checkCode(code, email);
+        redisService.delete(email);
         return true;
     }
 }

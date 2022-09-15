@@ -46,8 +46,6 @@ public class UserFacade {
         else if(!findCode.equals(code)) {
             throw CodeMismatchException.EXCEPTION;
         }
-
-        redisService.delete(email);
     }
 
     public User findByEmail(String email) {
