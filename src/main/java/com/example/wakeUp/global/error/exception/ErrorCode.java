@@ -25,13 +25,13 @@ public enum ErrorCode {
     ALREADY_REQUEST_SONG(422, "하루에 한 곡만 신청할 수 있습니다."),
     SONG_ALREADY_EXISTS(422, "오늘 이미 신청된 곡입니다."),
     SONG_NOT_FOUND(404, "노래를 찾을 수 없습니다."),
+    USER_FORBIDDEN( 403, "유저에게 권한이 없습니다."),
 
     ALREADY_PUSH_UP(401, "업은 한 번만 누를 수 있습니다."),
     UP_NOT_FOUND(404, "업을 누른적이 없습니다."),
 
 
     CHART_NOT_FOUND(404, "차트를 찾을 수 없습니다."),
-
     ;
 
     private final int status;
