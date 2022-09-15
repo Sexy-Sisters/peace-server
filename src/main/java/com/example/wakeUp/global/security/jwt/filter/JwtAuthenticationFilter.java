@@ -1,11 +1,8 @@
 package com.example.wakeUp.global.security.jwt.filter;
 
-import com.example.wakeUp.global.config.redis.RedisService;
 import com.example.wakeUp.global.security.auth.AuthDetailsService;
-import com.example.wakeUp.global.security.jwt.JwtProperties;
 import com.example.wakeUp.global.security.jwt.JwtTokenProvider;
 import com.example.wakeUp.global.security.jwt.JwtValidateService;
-import com.example.wakeUp.global.security.jwt.exception.ExpiredTokenException;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,8 +26,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
-
         String accessToken = jwtTokenProvider.resolveToken(request);
         if (accessToken != null) setAuthentication(accessToken, request);
 
