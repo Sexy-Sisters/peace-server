@@ -1,6 +1,5 @@
 package com.example.wakeUp.domain.user.presentation;
 
-import com.example.wakeUp.domain.user.domain.repository.UserRepository;
 import com.example.wakeUp.domain.user.presentation.dto.request.CodeRequestDto;
 import com.example.wakeUp.domain.user.presentation.dto.request.CreateUserRequestDto;
 import com.example.wakeUp.domain.user.presentation.dto.response.MyPageResponseDto;
