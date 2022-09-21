@@ -1,7 +1,6 @@
 package com.example.wakeUp.domain.user.service;
 
 import com.example.wakeUp.domain.song.domain.Song;
-import com.example.wakeUp.domain.song.exception.SongNotFoundException;
 import com.example.wakeUp.domain.song.facade.SongFacade;
 import com.example.wakeUp.domain.user.domain.User;
 import com.example.wakeUp.domain.user.domain.repository.UserRepository;
@@ -45,12 +44,8 @@ public class UserService implements UserServiceImp{
         mailService.sendMail(
                 email,
                 "ISSUE CODE",
-                mailService.genTemplateEngine(
-                        "issue-code",
-                        Map.of("code", code)
-                ),
-                true
-        );
+                mailService.genTemplateEngine("issue-code", Map.of("code", code)),
+                true);
     }
 
     @Transactional
