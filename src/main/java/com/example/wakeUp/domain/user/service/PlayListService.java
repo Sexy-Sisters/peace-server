@@ -28,4 +28,9 @@ public class PlayListService {
 
         playListRepository.save(playList);
     }
+
+    @Transactional
+    public void deletePlayList(Long id) {
+        playListRepository.deleteById(id);
+    }
 }
