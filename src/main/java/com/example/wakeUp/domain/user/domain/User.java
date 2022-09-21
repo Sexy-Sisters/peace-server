@@ -50,6 +50,9 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "user", cascade = ALL)
     private List<Like> likes = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = ALL)
+    private List<PlayList> playList = new ArrayList<>();
+
     @Builder
     public User(String name, String nickName, String email, String password, Authority authority) {
         this.name = name;
