@@ -1,10 +1,9 @@
 package com.example.wakeUp.domain.user.presentation;
 
+import com.example.wakeUp.domain.user.facade.UserFacade;
 import com.example.wakeUp.domain.user.presentation.dto.request.LoginRequestDto;
 import com.example.wakeUp.domain.user.presentation.dto.response.TokenResponseDto;
-import com.example.wakeUp.domain.user.facade.UserFacade;
 import com.example.wakeUp.domain.user.service.AuthService;
-import com.example.wakeUp.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

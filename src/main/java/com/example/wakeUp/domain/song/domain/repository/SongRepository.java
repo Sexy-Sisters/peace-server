@@ -5,7 +5,6 @@ import com.example.wakeUp.domain.user.domain.User;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import javax.persistence.Entity;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
