@@ -37,4 +37,9 @@ public class PlayList {
         this.singer = singer;
         this.user = user;
     }
+
+    public void setRelation(User user) {
+        this.user = user;
+        user.getPlayList().add(this);
+    }
 }
