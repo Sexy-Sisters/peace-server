@@ -9,9 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManager;
 
 @Component
 @RequiredArgsConstructor
@@ -56,5 +53,10 @@ public class UserFacade {
     public void checkPassword(User user, String password) {
         if (!passwordEncoder.matches(password, user.getPassword()))
             throw PasswordMisMatchException.EXCEPTION;
+    }
+
+    public User findById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
     }
 }

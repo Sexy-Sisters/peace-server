@@ -6,9 +6,13 @@ import com.example.wakeUp.domain.user.domain.repository.PlayListRepository;
 import com.example.wakeUp.domain.user.facade.PlayListFacade;
 import com.example.wakeUp.domain.user.facade.UserFacade;
 import com.example.wakeUp.domain.user.presentation.dto.request.AddPlayListRequestDto;
+import com.example.wakeUp.domain.user.presentation.dto.response.PlayListResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,5 +31,17 @@ public class PlayListService {
         playList.setRelation(user);
 
         playListRepository.save(playList);
+    }
+
+    @Transactional
+    public void deletePlayList(Long id) {
+        playListRepository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public List<PlayListResponseDto> findPlayList(Long userId) {
+        return userFacade.findById(userId).getPlayList().stream()
+                .map(PlayListResponseDto::of)
+                .collect(Collectors.toList());
     }
 }
