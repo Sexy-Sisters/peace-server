@@ -8,8 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -34,9 +32,6 @@ public class Chart extends BaseTimeEntity {
 
     @Column(name = "redis_key", nullable = false, unique = true)
     private String redisKey;
-
-    @OneToMany(mappedBy = "chart")
-    private List<Like> likes = new ArrayList<>();
 
     @Builder
     public Chart (String imgUrl, String title, String singer, int point, String redisKey) {
