@@ -47,9 +47,6 @@ public class User extends BaseTimeEntity {
     private List<Up> ups = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = ALL)
-    private List<Like> likes = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user", cascade = ALL)
     private List<PlayList> playList = new ArrayList<>();
 
     @Builder
