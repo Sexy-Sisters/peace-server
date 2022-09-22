@@ -12,4 +12,6 @@ public interface ChartRepository extends JpaRepository<Chart, Long> {
     Optional<Chart> findByTitleAndSinger(String title, String singer);
 
     Optional<Chart> findByRedisKey(String redisKey);
+
+    void deleteByRedisKey(String redisKey);
 }

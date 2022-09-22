@@ -11,4 +11,6 @@ public interface UpRepository extends JpaRepository<Up, Long> {
     Optional<Up> findByUserAndSong(User user, Song song);
 
     boolean existsByUserAndSong(User user, Song song);
+
+    void deleteBySong(Song song);
 }
