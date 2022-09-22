@@ -33,7 +33,7 @@ public class MonthlyRankingService {
     }
 
     @Transactional(readOnly = true)
-    public List<ChartResponseDto> getMonthlyRankingSet() {
+    public List<ChartResponseDto> getMonthlyRankingList() {
         long setSize = redisSortedSetService.getSize(KEY);
         long limitSize = setSize < 20 ? setSize : 20;
 

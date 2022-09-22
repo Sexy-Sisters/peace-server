@@ -1,6 +1,5 @@
 package com.example.wakeUp.domain.user.domain;
 
-import com.example.wakeUp.domain.chart.domain.Like;
 import com.example.wakeUp.domain.song.domain.Song;
 import com.example.wakeUp.domain.song.domain.Up;
 import com.example.wakeUp.domain.user.domain.type.Authority;
