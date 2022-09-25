@@ -1,25 +1,25 @@
 version: '3'
 
 services:
-  mysql:
-    container_name: mysql_wake_up
-    image: mysql/mysql-server:5.7
-    environment:
-      MYSQL_ROOT_HOST: "%"
-      MYSQL_USER: jik
-      MYSQL_PASSWORD: jesusisking
-      MYSQL_DATABASE: wake_up
-    ports:
-      - "3306:3306"
-    command:
-      - "mysqld"
-      - "--character-set-server=utf8mb4"
-      - "--collation-server=utf8mb4_unicode_ci"
-
+#  nginx_web:
+#    image: nginx
+#    ports:
+#      - 80:80
+#    volumes:
+#      - ./nginx/conf.d:/etc/nginx/conf.d
+#    depends_on:
+#      - peace_app
   redis:
     image: redis
-    container_name: redis_wake_up
     hostname: jik
     command: redis-server --port 6379
     ports:
-      - "6380:6379"
+      - "6379:6379"
+
+  peace_app:
+    container_name: peace_app
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - redis
