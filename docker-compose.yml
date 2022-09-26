@@ -1,25 +1,16 @@
 version: '3'
 
 services:
-#  nginx_web:
-#    image: nginx
-#    ports:
-#      - 80:80
-#    volumes:
-#      - ./nginx/conf.d:/etc/nginx/conf.d
-#    depends_on:
-#      - peace_app
-  redis:
+  peace-redis:
     image: redis
-    hostname: jik
     command: redis-server --port 6379
     ports:
       - "6379:6379"
 
   peace_app:
     container_name: peace_app
-    build: .
+    image: leekujin14/peace-app
     ports:
       - 8080:8080
     depends_on:
-      - redis
+      - peace-redis
