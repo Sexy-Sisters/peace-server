@@ -58,7 +58,7 @@ public class UserService implements UserServiceImp{
     @Transactional(readOnly = true)
     public MyPageResponseDto findMyPage() {
         User user = userFacade.getCurrentUser();
-        Song song = songFacade.findTodaySongByUser(user, DateUtil.getToday());
+        Song song = songFacade.findTodaySongByUser(user, DateUtil.getToday(), DateUtil.getTomorrow());
         return MyPageResponseDto.of(user, song);
     }
 }

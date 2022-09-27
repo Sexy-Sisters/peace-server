@@ -17,6 +17,6 @@ public interface SongRepository extends JpaRepository<Song, Long> {
     @EntityGraph(attributePaths = {"ups", "user"})
     Optional<Song> findByIdentify(String identify);
 
-    Optional<Song> findByUserAndCreatedAtAfter(User user, LocalDateTime today);
+    Optional<Song> findByUserAndCreatedAtBetween(User user, LocalDateTime today, LocalDateTime tomorrow);
 }
 
