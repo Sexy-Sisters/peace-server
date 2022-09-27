@@ -38,8 +38,8 @@ public class SongFacade {
                 .orElseThrow(() -> SongNotFoundException.EXCEPTION);
     }
 
-    public Song findTodaySongByUser(User user, LocalDateTime today) {
-        return songRepository.findByUserAndCreatedAtAfter(user, today)
+    public Song findTodaySongByUser(User user, LocalDateTime today, LocalDateTime tomorrow) {
+        return songRepository.findByUserAndCreatedAtBetween(user, today, tomorrow)
                 .orElse(null);
     }
 
