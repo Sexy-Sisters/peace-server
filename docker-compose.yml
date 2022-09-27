@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  peace-redis:
+    image: redis
+    command: redis-server --port 6379
+    ports:
+      - "6379:6379"
+
+  peace_app:
+    container_name: peace_app
+    image: leekujin14/peace-app
+    ports:
+      - 8080:8080
+    depends_on:
+      - peace-redis
