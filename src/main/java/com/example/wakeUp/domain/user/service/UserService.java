@@ -9,7 +9,7 @@ import com.example.wakeUp.domain.user.presentation.dto.request.CreateUserRequest
 import com.example.wakeUp.domain.user.presentation.dto.response.MyPageResponseDto;
 import com.example.wakeUp.global.Utils.DateUtil;
 import com.example.wakeUp.global.Utils.RandomUtil;
-import com.example.wakeUp.global.config.redis.RedisService;
+import com.example.wakeUp.global.redis.RedisService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

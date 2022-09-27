@@ -1,4 +1,4 @@
-package com.example.wakeUp.global.config.redis;
+package com.example.wakeUp.global.redis;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package com.example.wakeUp.global.config.redis;
+package com.example.wakeUp.global.redis;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;

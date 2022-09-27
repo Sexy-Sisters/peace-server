@@ -3,7 +3,7 @@ package com.example.wakeUp.domain.chart.service;
 import com.example.wakeUp.domain.chart.domain.Chart;
 import com.example.wakeUp.domain.chart.dto.ChartResponseDto;
 import com.example.wakeUp.domain.chart.facade.ChartFacade;
-import com.example.wakeUp.global.config.redis.RedisSortedSetService;
+import com.example.wakeUp.global.redis.RedisSortedSetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

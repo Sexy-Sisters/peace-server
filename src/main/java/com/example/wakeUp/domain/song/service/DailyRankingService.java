@@ -3,7 +3,7 @@ package com.example.wakeUp.domain.song.service;
 import com.example.wakeUp.domain.song.domain.Song;
 import com.example.wakeUp.domain.song.facade.SongFacade;
 import com.example.wakeUp.domain.song.presentation.dto.response.SongResponseDto;
-import com.example.wakeUp.global.config.redis.RedisSortedSetService;
+import com.example.wakeUp.global.redis.RedisSortedSetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
