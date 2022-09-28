@@ -7,6 +7,7 @@ import com.example.wakeUp.domain.user.domain.repository.UserRepository;
 import com.example.wakeUp.domain.user.facade.UserFacade;
 import com.example.wakeUp.domain.user.presentation.dto.request.CreateUserRequestDto;
 import com.example.wakeUp.domain.user.presentation.dto.response.MyPageResponseDto;
+import com.example.wakeUp.domain.user.presentation.dto.response.UserResponseDto;
 import com.example.wakeUp.global.Utils.DateUtil;
 import com.example.wakeUp.global.Utils.RandomUtil;
 import com.example.wakeUp.global.redis.RedisService;
@@ -21,6 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -63,7 +66,7 @@ public class UserService implements UserServiceImp{
     @Transactional(readOnly = true)
     public MyPageResponseDto findMyPage() {
         User user = userFacade.getCurrentUser();
-        Song song = songFacade.findTodaySongByUser(user, DateUtil.getToday());
+        Song song = songFacade.findTodaySongByUser(user, DateUtil.getToday(), DateUtil.getTomorrow());
         return MyPageResponseDto.of(user, song);
     }
 
@@ -76,5 +79,12 @@ public class UserService implements UserServiceImp{
         userRepository.save(user);
 
         return url;
+    }
+    
+    @Transactional(readOnly = true)
+    public Set<UserResponseDto> findUsers() {
+        return userRepository.findAll().stream()
+                .map(UserResponseDto::of)
+                .collect(Collectors.toSet());
     }
 }

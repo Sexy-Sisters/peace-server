@@ -3,6 +3,7 @@ package com.example.wakeUp.domain.user.presentation;
 import com.example.wakeUp.domain.user.presentation.dto.request.CodeRequestDto;
 import com.example.wakeUp.domain.user.presentation.dto.request.CreateUserRequestDto;
 import com.example.wakeUp.domain.user.presentation.dto.response.MyPageResponseDto;
+import com.example.wakeUp.domain.user.presentation.dto.response.UserResponseDto;
 import com.example.wakeUp.domain.user.service.UserService;
 import com.example.wakeUp.global.s3.S3Service;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Set;
+
 
 @RestController
 @RequestMapping("/api/user")
@@ -40,13 +43,19 @@ public class UserController {
         return userServiceImp.checkCode(request.getCode(), request.getEmail());
     }
 
-    @GetMapping
+    @GetMapping("/profile")
     public MyPageResponseDto getMyPage() {
+        log.info("<<<<<======[GET]: /api/user/profile =====>>>>>");
         return userServiceImp.findMyPage();
     }
 
     @PutMapping("/profile/img")
     public String updateProfileImg(@RequestParam(value = "image")MultipartFile multipartFile) throws IOException {
         return userServiceImp.updateProfile(multipartFile);
+
+    @GetMapping
+    public Set<UserResponseDto> findUsers() {
+        log.info("<<<<<======[GET]: /api/user =====>>>>>");
+        return userServiceImp.findUsers();
     }
 }

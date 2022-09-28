@@ -7,4 +7,4 @@ ARG JAR_FILE=./build/libs/*.jar
 COPY ${JAR_FILE} app.jar
 
 # 시스템 진입점 정의
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=prd","-jar","/app.jar"]
