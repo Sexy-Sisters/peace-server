@@ -11,6 +11,7 @@ import lombok.Getter;
 @Builder
 public class MyPageResponseDto {
 
+    private Long id;
     private String name;
     private String nickName;
     private String email;
@@ -21,6 +22,7 @@ public class MyPageResponseDto {
         SongResponseDto songResponseDto =
                 song == null ? null : SongResponseDto.of(song);
         return MyPageResponseDto.builder()
+                .id(user.getId())
                 .name(user.getName())
                 .nickName(user.getNickName())
                 .email(user.getEmail())

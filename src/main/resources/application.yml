@@ -1,8 +1,56 @@
 spring:
+  config:
+    activate:
+      on-profile:
+        - prd
+
   datasource:
     url: jdbc:mysql://peace-rds.ct8xsm5h9sob.ap-northeast-2.rds.amazonaws.com:3306/peace
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: admin
+    password: jesusisking
+
+  redis:
+    host: peace-redis
+    port: 6379
+
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          socketFactory.class: javax.net.ssl.SSLSocketFactory
+          auth: true
+          starttls:
+            enable: true
+
+  jwt:
+    secret: aGVsbG9Xb3JsZElzTXlMaWZlQmVjdWFzZU15TGlmZVNPR29vZEJlY2F1c2VGdWNrWW91U2h1dFVw
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile:
+        - dev
+
+  datasource:
+    url: jdbc:mysql://localhost:3308/peace
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: jik
     password: jesusisking
 
   redis:
