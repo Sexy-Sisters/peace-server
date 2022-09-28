@@ -2,13 +2,13 @@ version: '3'
 
 services:
   mysql:
-    container_name: toj_mysql
+    container_name: peace_mysql
     image: mysql/mysql-server:5.7
     environment:
       MYSQL_ROOT_HOST: "%"
       MYSQL_USER: jik
       MYSQL_PASSWORD: jesusisking
-      MYSQL_DATABASE: toj_db
+      MYSQL_DATABASE: peace
     ports:
       - "3308:3306"
     command:
