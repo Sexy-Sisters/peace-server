@@ -24,6 +24,9 @@ public class User extends BaseTimeEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "profile_img", nullable = false)
+    private String profileImg;
+
     @Column(nullable = false)
     private String name;
 
@@ -50,11 +53,16 @@ public class User extends BaseTimeEntity {
     private List<PlayList> playList = new ArrayList<>();
 
     @Builder
-    public User(String name, String nickName, String email, String password, Authority authority) {
+    public User(String profileImg, String name, String nickName, String email, String password, Authority authority) {
+        this.profileImg = profileImg;
         this.name = name;
         this.nickName = nickName;
         this.email = email;
         this.password = password;
         this.authority = authority;
+    }
+
+    public void updateProfileImg(String profileImg) {
+        this.profileImg = profileImg;
     }
 }

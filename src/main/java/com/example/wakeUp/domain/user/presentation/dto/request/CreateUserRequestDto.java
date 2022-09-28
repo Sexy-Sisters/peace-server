@@ -2,6 +2,7 @@ package com.example.wakeUp.domain.user.presentation.dto.request;
 
 import com.example.wakeUp.domain.user.domain.User;
 import com.example.wakeUp.domain.user.domain.type.Authority;
+import com.example.wakeUp.global.s3.DefaultProfileImg;
 import lombok.Getter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -26,6 +27,7 @@ public class CreateUserRequestDto {
                 .email(email)
                 .password(passwordEncoder.encode(password))
                 .authority(Authority.ROLE_USER)
+                .profileImg(DefaultProfileImg.DEFAULT_PROFILE_IMG)
                 .build();
     }
 }

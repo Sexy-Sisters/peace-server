@@ -4,11 +4,14 @@ import com.example.wakeUp.domain.user.presentation.dto.request.CodeRequestDto;
 import com.example.wakeUp.domain.user.presentation.dto.request.CreateUserRequestDto;
 import com.example.wakeUp.domain.user.presentation.dto.response.MyPageResponseDto;
 import com.example.wakeUp.domain.user.service.UserService;
+import com.example.wakeUp.global.s3.S3Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/user")
@@ -17,6 +20,7 @@ import javax.validation.Valid;
 public class UserController {
 
     private final UserService userServiceImp;
+    private final S3Service s3Service;
 
     @PostMapping
     public void signUp(@RequestBody @Valid CreateUserRequestDto request) {
@@ -39,5 +43,10 @@ public class UserController {
     @GetMapping
     public MyPageResponseDto getMyPage() {
         return userServiceImp.findMyPage();
+    }
+
+    @PutMapping("/profile/img")
+    public String updateProfileImg(@RequestParam(value = "image")MultipartFile multipartFile) throws IOException {
+        return userServiceImp.updateProfile(multipartFile);
     }
 }

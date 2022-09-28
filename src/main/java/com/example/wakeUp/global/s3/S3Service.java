@@ -19,8 +19,8 @@ public class S3Service {
 
     private final AmazonS3Client amazonS3Client;
 
-    public String upload(MultipartFile multipartFile) throws IOException {
-        String fileName = UUID.randomUUID() + "-" + multipartFile.getOriginalFilename();
+    public String upload(MultipartFile multipartFile, String dirName) throws IOException {
+        String fileName = dirName + UUID.randomUUID() + "-" + multipartFile.getOriginalFilename();
 
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType(multipartFile.getContentType());
