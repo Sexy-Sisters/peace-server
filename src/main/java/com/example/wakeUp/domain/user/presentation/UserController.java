@@ -36,8 +36,9 @@ public class UserController {
         return userServiceImp.checkCode(request.getCode(), request.getEmail());
     }
 
-    @GetMapping
+    @GetMapping("/profile")
     public MyPageResponseDto getMyPage() {
+        log.info("<<<<<======[GET]: /api/user/profile =====>>>>>");
         return userServiceImp.findMyPage();
     }
 }
