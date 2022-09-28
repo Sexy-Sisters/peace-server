@@ -3,12 +3,14 @@ package com.example.wakeUp.domain.user.presentation;
 import com.example.wakeUp.domain.user.presentation.dto.request.CodeRequestDto;
 import com.example.wakeUp.domain.user.presentation.dto.request.CreateUserRequestDto;
 import com.example.wakeUp.domain.user.presentation.dto.response.MyPageResponseDto;
+import com.example.wakeUp.domain.user.presentation.dto.response.UserResponseDto;
 import com.example.wakeUp.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/user")
@@ -36,8 +38,15 @@ public class UserController {
         return userServiceImp.checkCode(request.getCode(), request.getEmail());
     }
 
-    @GetMapping
+    @GetMapping("/profile")
     public MyPageResponseDto getMyPage() {
+        log.info("<<<<<======[GET]: /api/user/profile =====>>>>>");
         return userServiceImp.findMyPage();
+    }
+
+    @GetMapping
+    public Set<UserResponseDto> findUsers() {
+        log.info("<<<<<======[GET]: /api/user =====>>>>>");
+        return userServiceImp.findUsers();
     }
 }
