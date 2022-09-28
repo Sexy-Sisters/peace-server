@@ -1,6 +1,6 @@
 package com.example.wakeUp.global.security.jwt;
 
-import com.example.wakeUp.global.config.redis.RedisService;
+import com.example.wakeUp.global.redis.RedisService;
 import com.example.wakeUp.global.security.jwt.exception.AlreadyLogoutException;
 import com.example.wakeUp.global.security.jwt.exception.ExpiredTokenException;
 import io.jsonwebtoken.Claims;

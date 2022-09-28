@@ -1,13 +1,14 @@
 spring:
+
   config:
     activate:
       on-profile:
         - prd
-
+        
   datasource:
-    url: jdbc:mysql://peace-rds.ct8xsm5h9sob.ap-northeast-2.rds.amazonaws.com:3306/peace
+    url: jdbc:mysql://localhost:3306/peace
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: admin
+    username: jik
     password: jesusisking
 
   redis:
@@ -38,7 +39,12 @@ spring:
 
   jwt:
     secret: aGVsbG9Xb3JsZElzTXlMaWZlQmVjdWFzZU15TGlmZVNPR29vZEJlY2F1c2VGdWNrWW91U2h1dFVw
-
+    
+  profiles:
+    include:
+      - aws
+      - credentials
+      
 ---
 
 spring:
@@ -81,3 +87,9 @@ spring:
 
   jwt:
     secret: aGVsbG9Xb3JsZElzTXlMaWZlQmVjdWFzZU15TGlmZVNPR29vZEJlY2F1c2VGdWNrWW91U2h1dFVw
+
+
+  profiles:
+    include:
+      - aws
+      - credentials

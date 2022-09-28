@@ -10,12 +10,16 @@ import com.example.wakeUp.domain.user.presentation.dto.response.MyPageResponseDt
 import com.example.wakeUp.domain.user.presentation.dto.response.UserResponseDto;
 import com.example.wakeUp.global.Utils.DateUtil;
 import com.example.wakeUp.global.Utils.RandomUtil;
-import com.example.wakeUp.global.config.redis.RedisService;
+import com.example.wakeUp.global.redis.RedisService;
+import com.example.wakeUp.global.s3.S3Properties;
+import com.example.wakeUp.global.s3.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.util.Map;
 import java.util.Set;
@@ -31,6 +35,7 @@ public class UserService implements UserServiceImp{
     private final MailService mailService;
     private final RedisService redisService;
     private final SongFacade songFacade;
+    private final S3Service s3Service;
 
     @Override
     public void signUp(CreateUserRequestDto request) {
@@ -65,6 +70,17 @@ public class UserService implements UserServiceImp{
         return MyPageResponseDto.of(user, song);
     }
 
+    @Transactional
+    public String updateProfile(MultipartFile multipartFile) throws IOException {
+        User user = userFacade.getCurrentUser();
+        String url = s3Service.upload(multipartFile, S3Properties.USER_PROFILE);
+
+        user.updateProfileImg(url);
+        userRepository.save(user);
+
+        return url;
+    }
+    
     @Transactional(readOnly = true)
     public Set<UserResponseDto> findUsers() {
         return userRepository.findAll().stream()

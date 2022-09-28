@@ -10,7 +10,7 @@ services:
       MYSQL_PASSWORD: jesusisking
       MYSQL_DATABASE: peace
     ports:
-      - "3308:3306"
+      - "3306:3306"
     command:
       - "mysqld"
       - "--character-set-server=utf8mb4"

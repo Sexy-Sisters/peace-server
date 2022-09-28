@@ -3,7 +3,7 @@ package com.example.wakeUp.domain.user.facade;
 import com.example.wakeUp.domain.user.domain.User;
 import com.example.wakeUp.domain.user.domain.repository.UserRepository;
 import com.example.wakeUp.domain.user.exception.*;
-import com.example.wakeUp.global.config.redis.RedisService;
+import com.example.wakeUp.global.redis.RedisService;
 import com.example.wakeUp.global.security.auth.AuthDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
