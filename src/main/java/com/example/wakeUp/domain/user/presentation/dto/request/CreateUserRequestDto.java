@@ -22,12 +22,12 @@ public class CreateUserRequestDto {
 
     public User toEntity(PasswordEncoder passwordEncoder) {
         return User.builder()
+                .profileImg(DefaultProfileImg.DEFAULT_PROFILE_IMG)
                 .name(name)
                 .nickName(nickName)
                 .email(email)
                 .password(passwordEncoder.encode(password))
                 .authority(Authority.ROLE_USER)
-                .profileImg(DefaultProfileImg.DEFAULT_PROFILE_IMG)
                 .build();
     }
 }
