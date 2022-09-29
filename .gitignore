@@ -1,4 +1,4 @@
-src/main/resources/application-credentials.yml
+.env 
 
 HELP.md
 .gradle

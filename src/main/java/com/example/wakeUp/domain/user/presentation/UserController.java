@@ -50,8 +50,9 @@ public class UserController {
     }
 
     @PutMapping("/profile/img")
-    public String updateProfileImg(@RequestParam(value = "image")MultipartFile multipartFile) throws IOException {
+    public String updateProfileImg(@RequestParam(value = "image" )MultipartFile multipartFile) throws IOException {
         return userServiceImp.updateProfile(multipartFile);
+    }
 
     @GetMapping
     public Set<UserResponseDto> findUsers() {

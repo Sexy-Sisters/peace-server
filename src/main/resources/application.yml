@@ -1,20 +1,7 @@
 spring:
-
   config:
     activate:
-      on-profile:
-        - prd
-        
-  datasource:
-    url: jdbc:mysql://localhost:3306/peace
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: jik
-    password: jesusisking
-
-  redis:
-    host: peace-redis
-    port: 6379
-
+      on-profile: dev
   jpa:
     properties:
       hibernate:
@@ -24,53 +11,64 @@ spring:
     hibernate:
       ddl-auto: update
 
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: ${MAIL_USERNAME}
-    password: ${MAIL_PASSWORD}
-    properties:
-      mail:
-        smtp:
-          socketFactory.class: javax.net.ssl.SSLSocketFactory
-          auth: true
-          starttls:
-            enable: true
-
-  jwt:
-    secret: aGVsbG9Xb3JsZElzTXlMaWZlQmVjdWFzZU15TGlmZVNPR29vZEJlY2F1c2VGdWNrWW91U2h1dFVw
-    
-  profiles:
-    include:
-      - aws
-      - credentials
-      
----
-
-spring:
-  config:
-    activate:
-      on-profile:
-        - dev
-
   datasource:
-    url: jdbc:mysql://localhost:3308/peace
+#    url: jdbc:mysql://localhost:3306/peace
+    url: jdbc:mysql://${MYSQL_HOST}:3306/${MYSQL_DB}
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: jik
+    username: admin
     password: jesusisking
 
   redis:
     host: localhost
     port: 6379
 
-  jpa:
+  jwt:
+    secret: aGVsbG9Xb3JsZElzTXlMaWZlQmVjdWFzZU15TGlmZVNPR29vZEJlY2F1c2VGdWNrWW91U2h1dFVw
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
     properties:
-      hibernate:
-        format_sql: true
-    generate-ddl: true
-    show-sql: true
-    hibernate:
-      ddl-auto: update
+      mail:
+        smtp:
+          socketFactory.class: javax.net.ssl.SSLSocketFactory
+          auth: true
+          starttls:
+            enable: true
+cloud:
+  aws:
+    s3:
+      bucket: peace-img-bucket # 버킷 이름
+    region:
+      static: ap-northeast-2  # 리전 정보
+    stack:
+      auto: false
+    credentials:
+      instanceProfile: true
+      accessKey: ${AWS_ACCESS_KEY}
+      secretKey: ${AWS_SECRET_KEY}
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prd
+
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST}:3306/${MYSQL_DB}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: admin
+    password: jesusisking
+
+  redis:
+    host: peace-redis
+    port: ${REDIS_PORT}
+
+  jwt:
+    secret: ${JWT_SECRET}
 
   mail:
     host: smtp.gmail.com
@@ -85,11 +83,15 @@ spring:
           starttls:
             enable: true
 
-  jwt:
-    secret: aGVsbG9Xb3JsZElzTXlMaWZlQmVjdWFzZU15TGlmZVNPR29vZEJlY2F1c2VGdWNrWW91U2h1dFVw
-
-
-  profiles:
-    include:
-      - aws
-      - credentials
+cloud:
+  aws:
+    s3:
+      bucket: ${BUCKET_NAME} # 버킷 이름
+    region:
+      static: ${AWS_REGION} # 리전 정보
+    stack:
+      auto: false
+    credentials:
+      instanceProfile: true
+      accessKey: ${AWS_ACCESS_KEY}
+      secretKey: ${AWS_SECRET_KEY}
