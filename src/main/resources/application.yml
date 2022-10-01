@@ -1,7 +1,7 @@
 spring:
-  config:
-    activate:
-      on-profile: dev
+  profiles:
+    active: dev
+
   jpa:
     properties:
       hibernate:
@@ -11,11 +11,16 @@ spring:
     hibernate:
       ddl-auto: update
 
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
   datasource:
-#    url: jdbc:mysql://localhost:3306/peace
-    url: jdbc:mysql://${MYSQL_HOST}:3306/${MYSQL_DB}
+    url: jdbc:mysql://localhost:3306/peace
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: admin
+    username: jik
     password: jesusisking
 
   redis:
