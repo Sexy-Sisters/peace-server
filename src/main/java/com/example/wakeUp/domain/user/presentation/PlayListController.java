@@ -30,5 +30,4 @@ public class PlayListController {
     public void deletePlayList(@PathVariable Long id) {
         playListService.deletePlayList(id);
     }
-
 }
