@@ -4,10 +4,13 @@ import com.example.wakeUp.domain.song.presentation.dto.request.CreateSongRequest
 import com.example.wakeUp.domain.song.presentation.dto.response.SongResponseDto;
 import com.example.wakeUp.domain.song.service.DailyRankingService;
 import com.example.wakeUp.domain.song.service.SongService;
+import com.example.wakeUp.global.crawler.SearchSong;
+import com.example.wakeUp.global.crawler.dto.SearchSongDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -18,6 +21,7 @@ public class SongController {
 
     private final SongService songService;
     private final DailyRankingService dailyRankingService;
+    private final SearchSong searchSong;
 
     @PostMapping
     public void requestSong(@RequestBody CreateSongRequestDto dto) {
@@ -35,6 +39,11 @@ public class SongController {
     public List<SongResponseDto> getSongChart() {
         log.info("<<<<<====== [GET]: /api/song =====>>>>>");
         return dailyRankingService.getRankingList();
+    }
+
+    @GetMapping("/search")
+    public List<SearchSongDto> searchSong(@PathParam("word")String word) {
+        return searchSong.search(word);
     }
 }
 
