@@ -32,6 +32,8 @@ public enum ErrorCode {
 
 
     CHART_NOT_FOUND(404, "차트를 찾을 수 없습니다."),
+
+    PLAYLIST_FULL( 422, "10곡이 최대입니다"),
     ;
 
     private final int status;
