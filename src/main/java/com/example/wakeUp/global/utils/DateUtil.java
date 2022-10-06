@@ -1,4 +1,4 @@
-package com.example.wakeUp.global.Utils;
+package com.example.wakeUp.global.utils;
 
 import java.time.LocalDateTime;
 

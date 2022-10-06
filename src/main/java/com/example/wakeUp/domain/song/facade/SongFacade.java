@@ -5,7 +5,7 @@ import com.example.wakeUp.domain.song.domain.repository.SongRepository;
 import com.example.wakeUp.domain.song.exception.*;
 import com.example.wakeUp.domain.song.presentation.dto.request.CreateSongRequestDto;
 import com.example.wakeUp.domain.user.domain.User;
-import com.example.wakeUp.global.Utils.DateUtil;
+import com.example.wakeUp.global.utils.DateUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.util.StringUtils;
