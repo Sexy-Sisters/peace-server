@@ -3,7 +3,6 @@ package com.example.wakeUp.global.crawler;
 import com.example.wakeUp.global.crawler.dto.SearchSongDto;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +14,7 @@ import java.util.List;
 public class SearchSong {
 
     public List<SearchSongDto> search(String word) {
-        String url = "https://music.bugs.co.kr/search/integrated?q=" + word;
+        String url = "https://www.genie.co.kr/search/searchMain?query=" + word;
 
         Document doc = null;
         try {
@@ -24,21 +23,32 @@ public class SearchSong {
             e.printStackTrace();
         }
 
-        Elements trList = doc.select("#DEFAULT0 > table > tbody > tr");
+        Elements trList = doc.select("#body-content > div.search_song > div.search_result_detail > div > table > tbody > tr");
 
         List<SearchSongDto> searchSongList = new ArrayList<>();
-        for ( Element tr : trList ) {
-            String imgUrl = tr.select("a > img").attr("src");
-            String title = tr.select("th > p").text();
-            String singer = tr.select("td > p").text();
+        int size = Math.min(trList.size(), 10);
+        if (!trList.isEmpty()) {
+            for ( int i = 0; i < size; i++ ) {
+                String imgUrl = trList.get(i).select("td > a > img").attr("src");
+                String title = trList.get(i).select("td.info > a.title.ellipsis").text();
+                String singer = trList.get(i).select("td.info > a.artist.ellipsis").text();
 
-            SearchSongDto searchSongDto = SearchSongDto.builder()
-                    .imgUrl(imgUrl)
-                    .title(title)
-                    .singer(singer)
-                    .build();
+                if (title.startsWith("TITLE ")) {
+                    title = title.substring(6, title.length());
+                }
+                if (title.startsWith("19금 ")) {
+                    title = title.substring(4, title.length());
+                }
 
-            searchSongList.add(searchSongDto);
+
+                SearchSongDto searchSongDto = SearchSongDto.builder()
+                        .imgUrl(imgUrl)
+                        .title(title)
+                        .singer(singer)
+                        .build();
+
+                searchSongList.add(searchSongDto);
+            }
         }
 
         return searchSongList;
