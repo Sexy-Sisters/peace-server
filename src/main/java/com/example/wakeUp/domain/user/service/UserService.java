@@ -8,11 +8,11 @@ import com.example.wakeUp.domain.user.facade.UserFacade;
 import com.example.wakeUp.domain.user.presentation.dto.request.CreateUserRequestDto;
 import com.example.wakeUp.domain.user.presentation.dto.response.MyPageResponseDto;
 import com.example.wakeUp.domain.user.presentation.dto.response.UserResponseDto;
-import com.example.wakeUp.global.utils.DateUtil;
-import com.example.wakeUp.global.utils.RandomUtil;
 import com.example.wakeUp.global.redis.RedisService;
 import com.example.wakeUp.global.s3.S3Properties;
 import com.example.wakeUp.global.s3.S3Service;
+import com.example.wakeUp.global.utils.DateUtil;
+import com.example.wakeUp.global.utils.RandomUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,8 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -82,9 +82,9 @@ public class UserService implements UserServiceImp{
     }
     
     @Transactional(readOnly = true)
-    public Set<UserResponseDto> findUsers() {
-        return userRepository.findAll().stream()
+    public List<UserResponseDto> findUsers() {
+        return userRepository.findAllOrderByPlayListSize().stream()
                 .map(UserResponseDto::of)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 }

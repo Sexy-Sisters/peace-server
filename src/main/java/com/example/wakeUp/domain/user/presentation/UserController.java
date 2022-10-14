@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 
@@ -63,7 +64,7 @@ public class UserController {
 
     @Operation(summary = "유저 전부 조회 (순서 랜덤)")
     @GetMapping
-    public Set<UserResponseDto> findUsers() {
+    public List<UserResponseDto> findUsers() {
         log.info("<<<<<======[GET]: /api/user =====>>>>>");
         return userServiceImp.findUsers();
     }
