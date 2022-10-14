@@ -87,4 +87,11 @@ public class UserService implements UserServiceImp{
                 .map(UserResponseDto::of)
                 .collect(Collectors.toList());
     }
+
+    @Transactional
+    public void updateNickName(String nickName) {
+        User user = userFacade.getCurrentUser();
+        user.updateNickName(nickName);
+        userRepository.save(user);
+    }
 }

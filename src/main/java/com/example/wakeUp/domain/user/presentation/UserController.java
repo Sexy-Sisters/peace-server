@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 
 
 @Tag(name="유저", description = "유저 관련 API입니다.")
@@ -67,5 +66,11 @@ public class UserController {
     public List<UserResponseDto> findUsers() {
         log.info("<<<<<======[GET]: /api/user =====>>>>>");
         return userServiceImp.findUsers();
+    }
+
+    @Operation(summary = "닉네임 수정")
+    @PutMapping("/{nickName}")
+    public void updateUserProfile(@PathVariable String nickName) {
+        userServiceImp.updateNickName(nickName);
     }
 }
