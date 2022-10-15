@@ -35,7 +35,7 @@ public class ChartService {
     @Transactional
     public void decreasePoint(String title, String singer) {
         Chart chart = chartFacade.findChartByTitleAndSinger(title, singer);
-        chart.decreasePoint();
+        chart.decreasePoint(1);
 
         monthlyRankingService.push(chart);
     }
