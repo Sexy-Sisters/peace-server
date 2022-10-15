@@ -9,8 +9,8 @@ public class DateUtil {
         return LocalDateTime.of(
                 now.getYear(),
                 now.getMonth(),
-                now.getDayOfMonth(),
-                0, 0, 0
+                now.getDayOfMonth()-1,
+                23, 0, 0
         );
     }
 
