@@ -1,6 +1,8 @@
 package com.example.wakeUp.domain.song.service;
 
+import com.example.wakeUp.domain.chart.domain.Chart;
 import com.example.wakeUp.domain.chart.domain.repository.ChartRepository;
+import com.example.wakeUp.domain.chart.facade.ChartFacade;
 import com.example.wakeUp.domain.chart.service.ChartService;
 import com.example.wakeUp.domain.chart.service.MonthlyRankingService;
 import com.example.wakeUp.domain.song.domain.Song;
@@ -28,6 +30,7 @@ public class SongService {
     private final MonthlyRankingService monthlyRankingService;
     private final ChartRepository chartRepository;
     private final UpRepository upRepository;
+    private final ChartFacade chartFacade;
 
     @Transactional
     public void requestSong(CreateSongRequestDto dto) {
@@ -52,8 +55,16 @@ public class SongService {
         dailyRankingService.remove(song);
 
         String redisKey = song.getTitle()+"@"+song.getSinger();
-        monthlyRankingService.remove(redisKey);
-        chartRepository.deleteByRedisKey(redisKey);
+        Chart chart = chartFacade.findChartByRedisKey(redisKey);
+
+        if (chart.getPoint() == 0 || chart.getPoint() == song.getUps().size()) {
+            monthlyRankingService.remove(redisKey);
+            chartRepository.deleteByRedisKey(redisKey);
+        }
+        else {
+            chart.decreasePoint(song.getUps().size());
+            monthlyRankingService.push(chart);
+        }
 
         upRepository.deleteBySong(song);
         songRepository.delete(song);

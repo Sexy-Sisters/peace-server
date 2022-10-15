@@ -56,7 +56,7 @@ public class Chart extends BaseTimeEntity {
         this.point++;
     }
 
-    public void decreasePoint() {
-        this.point--;
+    public void decreasePoint(int n) {
+        this.point -= n;
     }
 }
