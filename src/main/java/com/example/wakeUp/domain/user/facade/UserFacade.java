@@ -10,6 +10,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotNull;
+
 @Component
 @RequiredArgsConstructor
 public class UserFacade {
@@ -18,8 +20,12 @@ public class UserFacade {
     private final RedisService redisService;
     private final PasswordEncoder passwordEncoder;
 
-    public void validateSignUp(String email, String name) {
-        if (userRepository.existsByEmail(email) || userRepository.existsByName(name)) {
+    public void validateSignUp(String email, String name, @NotNull(message = "닉네임을 입력해주세요") String nickName) {
+        if (
+                userRepository.existsByEmail(email) ||
+                userRepository.existsByName(name) ||
+                userRepository.existsByNickName(nickName)
+        ) {
             throw UserAlreadyExistsException.EXCEPTION;
         }
     }

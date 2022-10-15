@@ -39,7 +39,7 @@ public class UserService implements UserServiceImp{
 
     @Override
     public void signUp(CreateUserRequestDto request) {
-        userFacade.validateSignUp(request.getEmail(), request.getName());
+        userFacade.validateSignUp(request.getEmail(), request.getName(), request.getNickName());
         userRepository.save(request.toEntity(passwordEncoder));
     }
 
