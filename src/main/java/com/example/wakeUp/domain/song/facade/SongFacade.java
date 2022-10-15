@@ -21,10 +21,11 @@ public class SongFacade {
     public void validateRequestSong(CreateSongRequestDto dto, User user) {
         if (StringUtils.isEmpty(dto.getTitle()) && StringUtils.isEmpty(dto.getSinger()))
             throw EmptyStringException.EXCEPTION;
-        else if (songRepository.existsByUserAndCreatedAtBetween(user, DateUtil.getToday(), DateUtil.getTomorrow()))
+
+        if (songRepository.existsByUserAndCreatedAtBetween(user, DateUtil.getToday(), DateUtil.getTomorrow()))
             throw AlreadyRequestSongException.EXCEPTION;
 
-        else if (songRepository.existsByTitleAndSingerAndCreatedAtBetween(dto.getTitle(), dto.getSinger(), DateUtil.getToday(), DateUtil.getTomorrow()))
+        if (songRepository.existsByTitleAndSingerAndCreatedAtBetween(dto.getTitle(), dto.getSinger(), DateUtil.getToday(), DateUtil.getTomorrow()))
             throw SongAlreadyExistsException.EXCEPTION;
     }
 

@@ -18,7 +18,7 @@ public class Scheduler {
     @Scheduled(cron = "0 0 23 * * *")
     public void scheduleChartClearTask() {
         Date now = new Date();
-        System.out.println("BSSM CHART Cleared !!! :: " + now);
+        System.out.println("Daily Chart Cleared !!! :: " + now);
         dailyRankingService.removeAll();
     }
 
