@@ -90,8 +90,11 @@ public class UserService implements UserServiceImp{
 
     @Transactional
     public void updateNickName(String nickName) {
+        userFacade.validateUpdateNickName(nickName);
+
         User user = userFacade.getCurrentUser();
         user.updateNickName(nickName);
+
         userRepository.save(user);
     }
 }
