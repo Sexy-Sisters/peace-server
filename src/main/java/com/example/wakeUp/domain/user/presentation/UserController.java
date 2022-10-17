@@ -69,8 +69,8 @@ public class UserController {
     }
 
     @Operation(summary = "닉네임 수정")
-    @PutMapping("/{nickName}")
-    public void updateUserProfile(@PathVariable String nickName) {
+    @PutMapping("/nickName")
+    public void updateUserProfile(@RequestParam("nickName") String nickName) {
         userServiceImp.updateNickName(nickName);
     }
 }
