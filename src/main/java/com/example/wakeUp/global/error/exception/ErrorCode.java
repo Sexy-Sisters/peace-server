@@ -17,6 +17,7 @@ public enum ErrorCode {
     USER_NOT_FOUND(404, "사용자를 찾을 수 없습니다."),
     USER_ALREADY_EXISTS(422, "사용자가 이미 존재합니다."),
     PASSWORD_MISMATCH(401, "비밀번호가 틀렸습니다."),
+    NICKNAME_NOT_FOUND( 422, "이미 존재하는 닉네임입니다."),
 
     CODE_MISMATCH(401, "코드가 틀렸습니다."),
     EXPIRED_DATA(401, "만료된 데이터입니다."),
@@ -34,7 +35,9 @@ public enum ErrorCode {
     CHART_NOT_FOUND(404, "차트를 찾을 수 없습니다."),
 
     PLAYLIST_FULL( 422, "10곡이 최대입니다"),
+
     ;
+
 
     private final int status;
     private final String message;

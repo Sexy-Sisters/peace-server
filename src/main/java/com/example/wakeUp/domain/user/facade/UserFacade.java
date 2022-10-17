@@ -65,4 +65,10 @@ public class UserFacade {
         return userRepository.findById(id)
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
     }
+
+    public void validateUpdateNickName(String nickName) {
+        if(userRepository.existsByNickName(nickName)) {
+            throw NickNameAlreadyExistsException.EXCEPTION;
+        }
+    }
 }
